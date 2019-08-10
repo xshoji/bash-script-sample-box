@@ -757,6 +757,12 @@ eval ${COMMAND}
 > bash：tip_colors_and_formatting - FLOZz' MISC  
 > https://misc.flogisoft.com/bash/tip_colors_and_formatting
 
+単体の文章に色付けする場合は
+
+> bash - How to change the output color of echo in Linux - Stack Overflow  
+> https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux/5947802#5947802
+
+の方法が良さそう。
 
 # 複数行のファイルを指定文字列でjoinして1行にする
 
