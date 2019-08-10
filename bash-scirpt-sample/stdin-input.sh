@@ -48,7 +48,7 @@ done
 #------------------------------------------
 # - [How to read from a file or stdin in Bash? - Stack Overflow](https://stackoverflow.com/questions/6980090/how-to-read-from-a-file-or-stdin-in-bash)
 LINE_COUNT=0
-while read LINE || [ -n "${LINE}" ];
+while read -r LINE || [ -n "${LINE}" ];
 do
   LINE_COUNT=$(( LINE_COUNT + 1 ))
   echo "${LINE_COUNT} ${LINE}"

@@ -97,9 +97,9 @@ done
 # Get absolute directory path of this script
 # @see http://qiita.com/yudoufu/items/48cb6fb71e5b498b2532 bash/zshでsourceされたスクリプト内で、ファイル自身の絶対パスをとるシンプルな記法 - Qiita
 # /path/to/script_dir
-SCRIPT_DIR="$(cd $(dirname ${BASH_SOURCE:-$0}) && pwd)"
+SCRIPT_DIR="$(cd $(dirname "${BASH_SOURCE:-$0}") && pwd)"
 # /path/to
-SCRIPT_DIR_UPPER="$(cd $(dirname ${BASH_SOURCE:-$0})/.. && pwd)"
+SCRIPT_DIR_UPPER="$(cd $(dirname "${BASH_SOURCE:-$0}")/.. && pwd)"
 # @see http://d.hatena.ne.jp/ozuma/20130928/1380380390 shとbashでの変数内の文字列置換など - ろば電子が詰まっている
 # SCRIPT_FILE_NAME=${0/'./'/''}
 # > bash - Grab the filename in Unix out of full path - Stack Overflow
@@ -124,17 +124,17 @@ if sed --version 2>/dev/null | grep -q GNU; then
   PARAM_A_CAMEL=$(sed -r 's/(^|_)([a-z])/\U\2/g' <<< "${PARAM_A}")
 else
  # @see PerlでCamelize/DeCamelize - kawamuray's blog http://kawamuray.hatenablog.com/entry/2013/08/12/154443
-  PARAM_A_CAMEL=$(echo ${PARAM_A} | perl -pe 's/(?:^|_)(.)/\U$1/g')
+  PARAM_A_CAMEL=$(echo "${PARAM_A}" | perl -pe 's/(?:^|_)(.)/\U$1/g')
   # PARAM_A_CAMEL=$(sed -E 's/(^|_)([a-z])/\U\2/g' <<< "${PARAM_A}")
 fi
 
 #  - [［awk］大文字交じりのファイル名を小文字に変換する - Qiita](https://qiita.com/_shimizu/items/db30c8889de7b911f207)
 # aaa -> AAA
 STRING="aaa"
-STRING_UPPER=$(echo ${STRING} |awk '{print toupper($1)}')
+STRING_UPPER=$(echo "${STRING}" |awk '{print toupper($1)}')
 echo "${STRING} toupper ${STRING_UPPER}"
 # AAA -> aaa
-STRING_LOWER=$(echo ${STRING_UPPER} |awk '{print tolower($1)}')
+STRING_LOWER=$(echo "${STRING_UPPER}" |awk '{print tolower($1)}')
 echo "${STRING_UPPER} toupper ${STRING_LOWER}"
 
 
@@ -381,8 +381,8 @@ echo ""
 echo ${COUNT}". for loop"
 COUNT=$(( COUNT + 1 ))
 echo "for ..."
-for STRING in ${STRINGS[@]}; do
-    echo ${STRING}
+for STRING in "${STRINGS[@]}"; do
+    echo "${STRING}"
 done
 IFS_OLD=$IFS
 IFS=$'\n'
@@ -403,7 +403,7 @@ echo ""
 echo ""
 echo ${COUNT}". one line for"
 COUNT=$(( COUNT + 1 ))
-for number in $(seq 1 10); do echo ${number}; done
+for number in $(seq 1 10); do echo "${number}"; done
 echo ""
 
 
@@ -460,8 +460,8 @@ echo "VAR1: ${VAR1}, VAR: ${VAR2}"
 echo ""
 echo ${COUNT}". split tsv"
 COUNT=$(( COUNT + 1 ))
-DELIPITER=`printf '\t'`
-while IFS=${DELIPITER} read C1 C2 C3; do
+DELIPITER=$(printf '\t')
+while IFS=${DELIPITER} read -r C1 C2 C3; do
   echo "first=${C1} | second=${C2} | third=${C3}"
 done <<EOT
 a,a a	b,b b	c  c  c

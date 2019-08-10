@@ -88,15 +88,15 @@ elif [ "${PATTERN}" == "file" ]; then
     # Simple commands in file
     BASH_SOURCE_PATH=${BASH_SOURCE:-$0}
     SCRIPT_FILE_NAME=${BASH_SOURCE_PATH##*/}
-    TMP_FILE_PATH=`mktemp /tmp/temp.${SCRIPT_FILE_NAME}.XXXXXXXXXXXX`
+    TMP_FILE_PATH=$(mktemp /tmp/temp."${SCRIPT_FILE_NAME}".XXXXXXXXXXXX)
     trap "{ rm -f ${TMP_FILE_PATH}; }" EXIT
     # Write commands to file
     for VALUE in $(seq 1 ${LIMIT}); do
-        echo "echo file:\"${VALUE}\"" >> ${TMP_FILE_PATH}
+        echo "echo file:\"${VALUE}\"" >> "${TMP_FILE_PATH}"
     done
 
-    echo ${TMP_FILE_PATH}
-    cat ${TMP_FILE_PATH} |xargs -I{} -P ${CONCURRENCY} bash -c "{}"
+    echo "${TMP_FILE_PATH}"
+    cat "${TMP_FILE_PATH}" |xargs -I{} -P ${CONCURRENCY} bash -c "{}"
 
 elif [ "${PATTERN}" == "function" ]; then
 
@@ -106,9 +106,9 @@ elif [ "${PATTERN}" == "function" ]; then
     function executeMultipleCommands(){
         VALUE=${1}
         OUTPUT="pid:$$,"
-        OUTPUT="${OUTPUT} `date`"
+        OUTPUT="${OUTPUT} $(date)"
         OUTPUT="${OUTPUT} function:${VALUE}/${LIMIT}"
-        echo ${OUTPUT}
+        echo "${OUTPUT}"
     }
 
     export -f executeMultipleCommands
