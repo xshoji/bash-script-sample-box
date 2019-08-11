@@ -693,7 +693,7 @@ echo "Sleep ${SECONDS} [sec]"
 BASH_SOURCE_PATH=${BASH_SOURCE:-$0}
 SCRIPT_FILE_NAME=${BASH_SOURCE_PATH##*/}
 TMP_FILE_PATH=`mktemp /tmp/temp.${SCRIPT_FILE_NAME}.XXXXXXXXXXXX`
-trap "{ rm -f ${TMP_FILE_PATH}; }" EXIT
+trap "{ rm -f ${TMP_FILE_PATH}; }" EXIT SIGINT
 ```
 
 これでスクリプト終了時に必ず削除されるファイルを作れる。
