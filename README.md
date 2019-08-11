@@ -1,2 +1,3 @@
-# bashscript-sample-box
-Bashscript sample box
+# bash-script-sample-box
+
+Bashscript sample box.
