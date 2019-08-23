@@ -63,4 +63,5 @@ echo "Total lines: ${LINE_COUNT}"
 #   -a xshoji \
 #   -d "Bash script input stdin sample." \
 #   -d 'usage: cat text.txt |$(basename "$0")' \
-#   -s > /tmp/test.sh
+#   -s > /tmp/test.sh; open /tmp/test.sh
+

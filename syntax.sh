@@ -19,12 +19,15 @@ Required:
 Optional:
   --paramC ccc : Parameter C.
   -c, --check : Flag parameter.
-  --debug : Enable debug mode.
+
+Helper options:
+  --help, --debug
 
 _EOT_
   [[ "${1+x}" != "" ]] && { exit "${1}"; }
   exit 1
 }
+function printColored() { C=""; case "${1}" in "Yellow") C="\033[0;33m";; "Green") C="\033[0;32m";; esac; printf "%b%b\033[0m" "${C}" "${2}"; }
 
 
 
@@ -47,8 +50,8 @@ do
 done
 [[ -n "${HELP+x}" ]] && { usage 0; }
 # Check required parameters
-[[ -z "${PARAM_A+x}" ]] && { echo "[!] --paramA is required. "; INVALID_STATE="true"; }
-[[ -z "${PARAM_B+x}" ]] && { echo "[!] --paramB is required. "; INVALID_STATE="true"; }
+[[ -z "${PARAM_A+x}" ]] && { printColored Yellow "[!] --paramA is required.\n"; INVALID_STATE="true"; }
+[[ -z "${PARAM_B+x}" ]] && { printColored Yellow "[!] --paramB is required.\n"; INVALID_STATE="true"; }
 # Check invalid state and display usage
 [[ -n "${INVALID_STATE+x}" ]] && { usage; }
 # Initialize optional variables
@@ -56,15 +59,11 @@ done
 [[ -z "${CHECK+x}" ]] && { CHECK="false"; }
 
 
-# STARTER_URL=https://raw.githubusercontent.com/xshoji/bash-script-starter/develop/ScriptStarter.sh
-# curl -sf ${STARTER_URL} |bash -s - \
-#   -n syntax \
-#   -a xshoji \
-#   -r paramA,aaa,"Parameter A." \
-#   -r paramB,bbb,"Parameter B." \
-#   -o paramC,ccc,"Parameter C." \
-#   -f check,"Flag parameter." \
-#   -s > /tmp/test.sh
+
+#------------------------------------------
+# Main
+#------------------------------------------
+
 
 
 # set -e : 何らかのエラーが発生した時点で、それ以降の処理を中断する ことができます。
@@ -489,6 +488,17 @@ cat <<_EOT_
     }
 
 _EOT_
+
+
+# STARTER_URL=https://raw.githubusercontent.com/xshoji/bash-script-starter/develop/ScriptStarter.sh
+# curl -sf ${STARTER_URL} |bash -s - \
+#   -n syntax \
+#   -a xshoji \
+#   -r paramA,aaa,"Parameter A." \
+#   -r paramB,bbb,"Parameter B." \
+#   -o paramC,ccc,"Parameter C." \
+#   -f check,"Flag parameter." \
+#   -s > /tmp/test.sh; open /tmp/test.sh
 
 
 

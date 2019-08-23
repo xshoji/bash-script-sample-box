@@ -16,13 +16,15 @@ Optional:
   -c, --concurrency 3 : Concurrency. [ default: 3 ]
   -p, --pattern file  : Pattern of implementation. ( array | file | function ) [ default: file ]
   -l, --limit 10      : Repetition limit. [ default: 10 ]
-  --debug : Enable debug mode.
+
+Helper options:
+  --help, --debug
 
 _EOT_
   [[ "${1+x}" != "" ]] && { exit "${1}"; }
   exit 1
 }
-
+function printColored() { C=""; case "${1}" in "Yellow") C="\033[0;33m";; "Green") C="\033[0;32m";; esac; printf "%b%b\033[0m" "${C}" "${2}"; }
 
 
 
@@ -116,12 +118,12 @@ elif [ "${PATTERN}" == "function" ]; then
     seq 1 ${LIMIT} |xargs -I{} -P ${CONCURRENCY} bash -c "executeMultipleCommands \"{}\""
 
 else
-  echo "ERROR: Unkown pattern. ${PATTERN}"
+  printColored Yellow "ERROR: Unkown pattern. ${PATTERN}\n"
   exit 1
 fi
 
 echo ""
-echo "Processing time: ${SECONDS} [sec]"
+printColored Green "Processing time: ${SECONDS} [sec]\n"
 
 
 # STARTER_URL=https://raw.githubusercontent.com/xshoji/bash-script-starter/develop/ScriptStarter.sh
@@ -131,4 +133,4 @@ echo "Processing time: ${SECONDS} [sec]"
 #   -o concurrency,3,"Concurrency.","3" \
 #   -o pattern,file,"Pattern of implementation. ( array | file | function )","file" \
 #   -o limit,10,"Repetition limit.","10" \
-#   -s > /tmp/test.sh
+#   -s > /tmp/test.sh; open /tmp/test.sh

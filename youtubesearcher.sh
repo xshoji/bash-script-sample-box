@@ -4,29 +4,31 @@ function usage()
 {
 cat << _EOT_
 
-   youtubesearcher   
-  -------------------- author: xshoji
+ youtubesearcher
+--------------------
 
-  Usage:
-    ./$(basename "$0") --query "videTitle" [ --limit 10 ]
+Search youtube videos.
 
-  Description:
-    Search youtube videos.
+Usage:
+  ./$(basename "$0") --query videTitle [ --limit 10 ]
 
-  Environment settings are required such as follows,
-    export API_KEY=xxxxxx
- 
-  Required parameters:
-    --query,-q "videTitle" : A search query.
- 
-  Optional parameters:
-    --limit,-l 10 : A limit of results.
-    --debug : Enable debug mode
+Environment variables:
+  export API_KEY=xxxxxxxx
+
+Required:
+  -q, --query videTitle : A query for searching.
+
+Optional:
+  -l, --limit 10 : Results limit.
+
+Helper options:
+  --help, --debug
 
 _EOT_
-exit 1
+  [[ "${1+x}" != "" ]] && { exit "${1}"; }
+  exit 1
 }
-
+function printColored() { C=""; case "${1}" in "Yellow") C="\033[0;33m";; "Green") C="\033[0;32m";; esac; printf "%b%b\033[0m" "${C}" "${2}"; }
 
 
 
@@ -39,27 +41,41 @@ set -eu
 for ARG in "$@"
 do
     SHIFT="true"
-    [ "${ARG}" == "--debug" ] && { shift 1; set -eux; SHIFT="false"; }
-    ([ "${ARG}" == "--help" ] || [ "${ARG}" == "-h" ]) && { shift 1; HELP="true"; SHIFT="false"; }
-    ([ "${ARG}" == "--query" ] || [ "${ARG}" == "-q" ]) && { shift 1; QUERY="${1}"; SHIFT="false"; }
-    ([ "${ARG}" == "--limit" ] || [ "${ARG}" == "-l" ]) && { shift 1; LIMIT="${1}"; SHIFT="false"; }
-    ([ "${SHIFT}" == "true" ] && [ "$#" -gt 0 ]) && { shift 1; }
+    [[ "${ARG}" == "--debug" ]] && { shift 1; set -eux; SHIFT="false"; }
+    { [[ "${ARG}" == "--query" ]] || [[ "${ARG}" == "-q" ]]; } && { shift 1; QUERY="${1}"; SHIFT="false"; }
+    { [[ "${ARG}" == "--limit" ]] || [[ "${ARG}" == "-l" ]]; } && { shift 1; LIMIT="${1}"; SHIFT="false"; }
+    { [[ "${ARG}" == "--help" ]] || [[ "${ARG}" == "-h" ]]; } && { shift 1; HELP="true"; SHIFT="false"; }
+    { [[ "${SHIFT}" == "true" ]] && [[ "$#" -gt 0 ]]; } && { shift 1; }
 done
-[ ! -z "${HELP+x}" ] && { usage; exit 0; }
+[[ -n "${HELP+x}" ]] && { usage 0; }
 # Check environment variables
-[ -z "${API_KEY+x}" ] && { echo "[!] export API_KEY=xxxxxx is required. "; INVALID_STATE="true"; }
+[[ -z "${API_KEY+x}" ]] && { printColored Yellow "[!] export API_KEY=xxxxxxxx is required.\n"; INVALID_STATE="true"; }
 # Check required parameters
-[ -z "${QUERY+x}" ] && { echo "[!] --query is required. "; INVALID_STATE="true"; }
+[[ -z "${QUERY+x}" ]] && { printColored Yellow "[!] --query is required.\n"; INVALID_STATE="true"; }
 # Check invalid state and display usage
-[ ! -z "${INVALID_STATE+x}" ] && { usage; exit 1; }
+[[ -n "${INVALID_STATE+x}" ]] && { usage; }
 # Initialize optional variables
-[ -z "${LIMIT+x}" ] && { LIMIT=""; }
+[[ -z "${LIMIT+x}" ]] && { LIMIT=""; }
 
 
 
 #------------------------------------------
 # Main
 #------------------------------------------
+
+cat << __EOT__
+
+[ Environment variables ]
+API_KEY: ${API_KEY}
+
+[ Required parameters ]
+query: ${QUERY}
+
+[ Optional parameters ]
+limit: ${LIMIT}
+
+__EOT__
+
 
 #------------------------------------------
 # Functions
@@ -115,3 +131,13 @@ do
   # update limit value update
   LIMIT=$((${LIMIT} - 50))
 done
+
+
+# STARTER_URL=https://raw.githubusercontent.com/xshoji/bash-script-starter/develop/ScriptStarter.sh
+# curl -sf ${STARTER_URL} |bash -s - \
+#   -n youtubesearcher \
+#   -d "Search youtube videos." \
+#   -e API_KEY,xxxxxxxx \
+#   -r query,"videTitle","A query for searching." \
+#   -o limit,10,"Results limit." \
+#   -s > /tmp/test.sh; open /tmp/test.sh
