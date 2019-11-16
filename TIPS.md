@@ -771,3 +771,15 @@ $ cat extlist.txt |awk '{ORS=" ";print $1}'
 ```
 
 でいける。ORSで区切り文字指定。
+
+# \nを改行に置換する
+
+```
+[11-17 01:06:01] macbookpro ~$ echo "aaa\nbbb\nccc" | sed 's/\\n/\'$'\n/g'
+aaa
+bbb
+ccc
+```
+
+> sed による置換で改行\nを出力する - Qiita  
+> https://qiita.com/kkdd/items/725e53572bc69e4b51b7
