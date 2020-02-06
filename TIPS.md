@@ -1,4 +1,4 @@
-# スペース区切り（カンマ区切りとかもOK）を改行区切りに変換してxargsで並列処理しやすくする
+# スペース区切り（カンマ区切りとかもOK）を改行区切りに変換してxargsで並列処理する
 
 ```
 echo "aaa bbb ccc ddd eeee fff gggg hhh iii jjj" |awk -v RS=" " '{print}' |sed '$d' |xargs -P5 -IXXX echo XXX
