@@ -1,3 +1,15 @@
+# スペース区切り（カンマ区切りとかもOK）を改行区切りに変換してxargsで並列処理しやすくする
+
+```
+echo "aaa bbb ccc ddd eeee fff gggg hhh iii jjj" |awk -v RS=" " '{print}' |sed '$d' |xargs -P5 -IXXX echo XXX
+```
+
+> command line - How to replace spaces with newlines/enter in a text-file? - Ask Ubuntu  
+> https://askubuntu.com/questions/461144/how-to-replace-spaces-with-newlines-enter-in-a-text-file
+
+> テキストの最後の行だけ消したい時、どうやればいい？ - Qiita  
+> https://qiita.com/richmikan@github/items/4317efffdfd57dc24cf7
+
 # ランダムな文字列を１０個一気に生成する
 
 ```
