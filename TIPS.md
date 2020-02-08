@@ -1,3 +1,15 @@
+# スペース区切り（カンマ区切りとかもOK）を改行区切りに変換してxargsで並列処理する
+
+```
+echo "aaa bbb ccc ddd eeee fff gggg hhh iii jjj" |awk -v RS=" " '{print}' |sed '$d' |xargs -P5 -IXXX echo XXX
+```
+
+> command line - How to replace spaces with newlines/enter in a text-file? - Ask Ubuntu  
+> https://askubuntu.com/questions/461144/how-to-replace-spaces-with-newlines-enter-in-a-text-file
+
+> テキストの最後の行だけ消したい時、どうやればいい？ - Qiita  
+> https://qiita.com/richmikan@github/items/4317efffdfd57dc24cf7
+
 # ランダムな文字列を１０個一気に生成する
 
 ```
@@ -771,3 +783,15 @@ $ cat extlist.txt |awk '{ORS=" ";print $1}'
 ```
 
 でいける。ORSで区切り文字指定。
+
+# \nを改行に置換する
+
+```
+[11-17 01:06:01] macbookpro ~$ echo "aaa\nbbb\nccc" | sed 's/\\n/\'$'\n/g'
+aaa
+bbb
+ccc
+```
+
+> sed による置換で改行\nを出力する - Qiita  
+> https://qiita.com/kkdd/items/725e53572bc69e4b51b7
