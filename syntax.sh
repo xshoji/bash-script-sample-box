@@ -113,7 +113,7 @@ TODAY="$(date +"%Y-%m-%d %H:%M:%S")"
 if sed --version 2>/dev/null | grep -q GNU; then
   PARAM_A_SNAKE=$(sed -e 's/\([A-Z]\)/_\L\1/g' -e 's/^_//'  <<< "${PARAM_A}")
 else
-  PARAM_A_SNAKE=$(echo ${PARAM_A} | perl -ne 'print lc(join("_", split(/(?=[A-Z])/)))')
+  PARAM_A_SNAKE=$(echo "${PARAM_A}" | perl -ne 'print lc(join("_", split(/(?=[A-Z])/)))')
 fi
 
 
@@ -171,7 +171,7 @@ cut -d ',' -f 1 <<< "aaa,bbb"
 echo ""
 echo ${COUNT}". if strlen(PARAM_A) === 'aaa' : echo 'PARAM_A is aaa' ? echo 'PARAM_A is not aaa'"
 COUNT=$(( COUNT + 1 ))
-[ "${PARAM_A}" = "aaa" ] && echo 'PARAM_A is aaa' || echo 'PARAM_A is not aaa'
+[[ "${PARAM_A}" = "aaa" ]] && echo 'PARAM_A is aaa' || echo 'PARAM_A is not aaa'
 
 
 
@@ -182,10 +182,10 @@ COUNT=$(( COUNT + 1 ))
 echo ""
 echo ${COUNT}". if is_defined(VAR_A)"
 COUNT=$(( COUNT + 1 ))
-if [ -z "${VAR_A+x}" ] ; then
+if [[ "${VAR_A+x}" == "" ]] ; then
     echo "=> var VAR_A is not defined."
 fi
-if [ ! -z "${VAR_A+x}" ] ; then
+if [[ "${VAR_A+x}" != "" ]] ; then
     echo "=> var VAR_A is defined."
 fi
 
@@ -197,7 +197,7 @@ fi
 echo ""
 echo ${COUNT}". if is_defined(VAR_A) && is_defined(VAR_B)"
 COUNT=$(( COUNT + 1 ))
-if [ -z "${VAR_A+x}" ] && [ -z "${VAR_B+x}" ]; then
+if [[ "${VAR_A+x}" != "" ]] && [[ "${VAR_B+x}" != "" ]]; then
     echo "=> var VAR_A and VAR_B are not defined."
 fi
 
@@ -209,7 +209,7 @@ fi
 echo ""
 echo ${COUNT}". if is_defined(VAR_A) || is_defined(PARAM_A)"
 COUNT=$(( COUNT + 1 ))
-if [ -z "${VAR_A+x}" ] || [ -z "${PARAM_A+x}" ]; then
+if [[ "${VAR_A+x}" != "" ]] || [[ "${PARAM_A+x}" != "" ]]; then
     echo "=> var VAR_A or VAR_B is not defined."
 fi
 
@@ -221,7 +221,7 @@ fi
 echo ""
 echo ${COUNT}". if strlen(PARAM_C) === 0"
 COUNT=$(( COUNT + 1 ))
-if [ -z "${PARAM_C}" ] ; then
+if [[ "${PARAM_C}" != "" ]] ; then
 # if [ -n "${PARAM_C}" ] ; then
     echo "=> strlen(PARAM_C) === 0."
 else
@@ -233,19 +233,19 @@ fi
 echo ""
 echo ${COUNT}". if 10 > 5, 5 < 10, 10 <= 10, 10 >= 10"
 COUNT=$(( COUNT + 1 ))
-if [ 10 -gt 5 ] ; then
+if [[ 10 -gt 5 ]] ; then
     echo "10 > 5"
 fi
-if [ 5 -lt 10 ] ; then
+if [[ 5 -lt 10 ]] ; then
     echo "5 < 10"
 fi
-if [ 10 -gt 5 ] ; then
+if [[ 10 -gt 5 ]] ; then
     echo "10 > 5"
 fi
-if [ 10 -ge 10 ] ; then
+if [[ 10 -ge 10 ]] ; then
     echo "10 >= 10"
 fi
-if [ 10 -le 10 ] ; then
+if [[ 10 -le 10 ]] ; then
     echo "10 <= 10"
 fi
 
@@ -255,7 +255,7 @@ fi
 echo ""
 echo ${COUNT}". if PARAM_A == PARAM_C"
 COUNT=$(( COUNT + 1 ))
-if [ "${PARAM_A}" = "${PARAM_C}" ] ; then
+if [[ "${PARAM_A}" == "${PARAM_C}" ]] ; then
 # if [ "${PARAM_A}" != "${PARAM_C}" ] ; then
     echo "=> PARAM_A == PARAM_C."
 else
@@ -270,7 +270,7 @@ fi
 echo ""
 echo ${COUNT}". if file_exists(PARAM_A)"
 COUNT=$(( COUNT + 1 ))
-if [ -e "${PARAM_A}" ] ; then
+if [[ -e "${PARAM_A}" ]] ; then
 # if [ ! -e "${PARAM_A}" ] ; then
     echo "=> file PARAM_A exists."
 else
