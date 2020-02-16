@@ -12,7 +12,7 @@ SCRIPT_FILE_NAME=${BASH_SOURCE_PATH##*/}
 
 
 # Get today
-TODAY="$(date +"%Y-%m-%d %H:%M:%S")
+TODAY=$(date +"%Y-%m-%d %H:%M:%S")
 
 
 # CamelCase to SnakeCase
