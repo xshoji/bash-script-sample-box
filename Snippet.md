@@ -1,3 +1,6 @@
+# Snippet
+
+```bash
 #!/bin/bash
 
 # Get path 
@@ -167,3 +170,4 @@ cat test |sed '/^$/d'
 # Print colored string func
 function printColored() { local B="\033[0;"; local C=""; case "${1}" in "red") C="31m";; "green") C="32m";; "yellow") C="33m";; "blue") C="34m";; esac; printf "%b%b\033[0m" "${B}${C}" "${2}"; }
 printColored yellow "test"
+```
