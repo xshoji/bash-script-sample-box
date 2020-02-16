@@ -13,17 +13,17 @@ TODAY="$(date +"%Y-%m-%d %H:%M:%S")
 
 
 # CamelCase to SnakeCase
-$ echo "aaaBbbCcc" | perl -ne 'print lc(join("_", split(/(?=[A-Z])/)))'
+echo "aaaBbbCcc" | perl -ne 'print lc(join("_", split(/(?=[A-Z])/)))'
 aaa_bbb_ccc
 
 
 # SnakeCase to CamelCase
-$ echo "aaa_bbb_ccc" | perl -pe 's/(?:^|_)(.)/\U$1/g'
+echo "aaa_bbb_ccc" | perl -pe 's/(?:^|_)(.)/\U$1/g'
 AaaBbbCcc
 
 
 # Lowercase to UpperCase
-$ echo "aaa" |awk '{print toupper($1)}'
+echo "aaa" |awk '{print toupper($1)}'
 AAA
 
 
@@ -68,10 +68,10 @@ echo "1 / 3 = "$(round $(awk "BEGIN {print 1 / 3}") 3)
 echo $RANDOM # 0～32767までの範囲で出力する
 echo $((RANDOM%100+101)) # 100～200までの範囲で出力する
 # [base64]
-$ openssl rand -base64 15 | fold -w 15 |head -n 1
+openssl rand -base64 15 | fold -w 15 |head -n 1
 yWeZes91kn/pd40
 # [hex]
-$ openssl rand -hex 15 | fold -w 15 |head -n 1
+openssl rand -hex 15 | fold -w 15 |head -n 1
 924aa2f665ebb1a
 
 
