@@ -55,6 +55,10 @@ echo "Array values[0]: ${STRINGS[0]}"
 [[ -e "/tmp/aaa.txt" ]] && { echo "=> file PARAM_A exists."; }
 
 
+# Multiple If one line
+{ [[ 10 -le 10 ]] && [[ -e "/tmp/aaa.txt" ]]; } && { echo "=> file PARAM_A exists."; }
+
+
 # Calc
 echo "(10 + 20 - 25) * 40 / 50 = "$(( (10 + 20 - 25) * 40 / 50 ))
 
@@ -165,6 +169,10 @@ ccc
 
 # Delete empty lines
 cat test |sed '/^$/d' 
+
+
+# Check command exists
+[[ ! $(type "column" > /dev/null 2>&1) ]] && { echo "column command exists!"; }
 
 
 # Print colored string func
