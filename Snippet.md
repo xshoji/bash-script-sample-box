@@ -179,3 +179,17 @@ cat test |sed '/^$/d'
 function printColored() { local B="\033[0;"; local C=""; case "${1}" in "red") C="31m";; "green") C="32m";; "yellow") C="33m";; "blue") C="34m";; esac; printf "%b%b\033[0m" "${B}${C}" "${2}"; }
 printColored yellow "test"
 ```
+
+# Print by set mode
+sh -x ./run.sh # Print execute commands
+sh -e ./run.sh # Stop on error
+sh -u ./run.sh # Stop on read undefined variable
+
+
+# Redirect stderr and stdout
+sh -x ./run.sh &> out.txt
+
+
+# Redirect all /dev/null
+command > /dev/null 2>&1
+
