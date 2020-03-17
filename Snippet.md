@@ -40,6 +40,10 @@ echo "Array values: ${STRINGS[@]}"
 echo "Array values[0]: ${STRINGS[0]}"
 
 
+# copy array to array
+LIST_VAR=("$@")
+
+
 # Exists variable
 [[ "${VAR_A+x}" == "" ]] && { echo "=> var VAR_A is not defined."; }
 
@@ -196,5 +200,8 @@ command > /dev/null 2>&1
 
 # awk argument pattern ( escape " => \", escape " in \"\" => \\\", variables => "$1" )
 echo "1,10,arg1,arg2" |awk -F',' '{ system("seq -f \"%02g\" "$1" "$2" |xargs -I{} bash -c \"sleep 1; echo -n \\\"{} \\\"; echo \\\" "$3", "$4" \\\" \"") }
+
+
+
 
 ```
