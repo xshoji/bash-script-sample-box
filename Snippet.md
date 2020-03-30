@@ -202,6 +202,9 @@ command > /dev/null 2>&1
 echo "1,10,arg1,arg2" |awk -F',' '{ system("seq -f \"%02g\" "$1" "$2" |xargs -I{} bash -c \"sleep 1; echo -n \\\"{} \\\"; echo \\\" "$3", "$4" \\\" \"") }
 
 
-
+# escape single quote in single quote
+alias rxvt='urxvt -fg '"'"'#111111'"'"' -bg '"'"'#111111'"'"
+ #                     ^^^^^       ^^^^^     ^^^^^       ^^^^
+ #                     12345       12345     12345       1234
 
 ```
