@@ -63,15 +63,13 @@ LIST_VAR=("$@")
 { [[ 10 -le 10 ]] && [[ -e "/tmp/aaa.txt" ]]; } && { echo "=> file PARAM_A exists."; }
 
 
-# Calc
-echo "(10 + 20 - 25) * 40 / 50 = "$(( (10 + 20 - 25) * 40 / 50 ))
-
-
 # Round
-round() {
-    printf "%.$2f" "$1"
-}
-echo "1 / 3 = "$(round $(awk "BEGIN {print 1 / 3}") 3)
+echo $(awk "BEGIN {print 10 * (20 + 10) / 12398}")
+0.0241975
+echo $(printf "%.3f" $(awk "BEGIN {print 10 * (20 + 10) / 12398}"))
+0.024
+echo $(printf "%.0f" $(awk "BEGIN {print 10 * 20 + 10}"))
+210
 
 
 # Random
