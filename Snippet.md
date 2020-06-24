@@ -205,4 +205,7 @@ alias rxvt='urxvt -fg '"'"'#111111'"'"' -bg '"'"'#111111'"'"
  #                     ^^^^^       ^^^^^     ^^^^^       ^^^^
  #                     12345       12345     12345       1234
 
+
+# rename files by rules
+for i in $(find * -type f -name '*.java'); do FROM=${i}; TO=`echo ${i} |sed 's/aaa/bbb/g'`; mv ${FROM} ${TO}; done
 ```
