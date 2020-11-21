@@ -224,7 +224,7 @@ for i in $(find * -type f -name '*.java'); do FROM=${i}; TO=`echo ${i} |sed 's/a
 
 
 
-# String
+## String
 
 ```
 #!/bin/bash
@@ -319,7 +319,7 @@ echo "10 * (20 + 10) / 12398" |xargs -I{} bash -c 'printf "%.3f\n" $(awk "BEGIN 
 
 
 
-# Date and Time
+## Date and Time
 
 ```
 #!/bin/bash
@@ -366,7 +366,7 @@ echo "Sleep ${SECONDS} [sec]"
 
 
 
-# Utility
+## Utility
 
 ```
 #!/bin/bash
@@ -422,7 +422,7 @@ printColored yellow "test"
 
 
 
-# Server
+## Server
 
 ```
 #!/bin/bash
