@@ -283,6 +283,12 @@ ccc
 #------------------------
 # Delete empty lines
 cat test |sed '/^$/d' 
+
+
+
+#------------------------
+# Match NOT xxx lines
+echo -e "aaaa\n/bbbb\nccccc" |sed "/^\//! s/^/\//g"
 ```
 
 
