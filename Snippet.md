@@ -455,7 +455,7 @@ timeout 2 bash -c "</dev/tcp/canyouseeme.org/80"; echo $?
 
 ## Json
 
-```
+```bash
 #------------------------
 # Parse json by python
 echo '{"name":"taro","age":16,"tags":["aaa","bbb","ccc"]}' | python -c "import sys, json; print json.load(sys.stdin)['tags'][0]"
@@ -472,9 +472,9 @@ echo '{"name":"taro","age":16,"tags":["aaa","bbb","ccc"]}' | python -c "import s
 
 ## Yaml
 
-```
+```bash
 #------------------------
 # Parse yaml by ruby
-echo -e "name: taro\nage: 16\ntags:\n  - aaa\n  - bbb\n  - ccc" |ruby -rjson -ryaml -e "puts YAML.load(STDIN.read)['tags'][0]"
+echo -e "name: taro\nage: 16\ntags:\n  - aaa\n  - bbb\n  - ccc" |ruby -ryaml -e "puts YAML.load(STDIN.read)['tags'][0]"
 ```
 ```
