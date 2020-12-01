@@ -307,7 +307,7 @@ echo -e "aaaa\n/bbbb\nccccc" |sed "/^\//! s/^/\//g"
 
 #------------------------
 # Calc
-echo $(awk "BEGIN {print 10 * (20 + 10) / 12398}")
+awk "BEGIN {print 10 * (20 + 10) / 12398}"
 0.0241975
 printf "%.3f\n" $(awk "BEGIN {print 10 * (20 + 10) / 12398}")
 0.024
