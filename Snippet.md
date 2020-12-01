@@ -309,9 +309,9 @@ echo -e "aaaa\n/bbbb\nccccc" |sed "/^\//! s/^/\//g"
 # Calc
 echo $(awk "BEGIN {print 10 * (20 + 10) / 12398}")
 0.0241975
-echo $(printf "%.3f" $(awk "BEGIN {print 10 * (20 + 10) / 12398}"))
+printf "%.3f\n" $(awk "BEGIN {print 10 * (20 + 10) / 12398}")
 0.024
-echo $(printf "%.0f" $(awk "BEGIN {print 10 * 20 + 10}"))
+printf "%.0f\n" $(awk "BEGIN {print 10 * 20 + 10}")
 210
 echo "10 * (20 + 10) / 12398" |xargs -I{} bash -c 'printf "%.3f\n" $(awk "BEGIN {print {}}")'
 0.024
