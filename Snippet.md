@@ -289,8 +289,8 @@ cat test |sed '/^$/d'
 
 #------------------------
 # Delete new lines ( Multiple lines to One line )
-openssl rand -base64 200 | awk '{ printf "%s", $0 } END { print }'
-sLY7+wKj4QM4AWeXGiPD/W3iCN89pL+ymJadAhhh2hjcEsGYLuZ9WEOMhe1SCdKPvNeHTApxjfR+iG63RJRslFhE7097gwIeT5nKnS0nagsy0UYW0y5NOwgUACwVDyIoN9Kbs79LoC4wfAj7naJqHPEwxbvxVqyJ5bhO4cBwrKavOBEwrOZQDurTNN01okDUEKJzqvq4hxVSGStljHKnKgfR0w/2iHbjVMVoZ+PY3uL0hI7fw9ZXsyOfdIj3mNmze1tAHCgLiaw=e1tAHCgLiaw=
+echo -e "aaa\nbbb\nccc" | awk '{ printf "%s", $0 } END { print }'
+aaabbbcccccc
 
 
 
