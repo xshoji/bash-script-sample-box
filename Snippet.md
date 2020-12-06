@@ -126,7 +126,7 @@ echo "${LINE_COUNT}"
 
 #------------------------
 # Multiple If one line
-{ [[ 10 -le 10 ]] && [[ -e "/tmp/aaa.txt" ]]; } && { echo "=> file /tmp/aaa.txt exists."; }
+{ [[ 10 -le 10 ]] && [[ -e "/tmp/aaa.txt" ]]; } && { echo "A && B = true"; }
 
 
 
@@ -214,7 +214,7 @@ echo "input.tsv,10" |awk -F',' '{ system("split -l $(expr $(cat "$1" |wc -l)  / 
 
 #------------------------
 # Check if a file exists
-[[ -e "/tmp/aaa.txt" ]] && { echo "=> file PARAM_A exists."; }
+[[ -e "/tmp/aaa.txt" ]] && { echo "=> file /tmp/aaa.txt exists."; }
 
 
 
