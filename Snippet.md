@@ -33,6 +33,13 @@ echo 'test '"'"'#111111'"'"' -bg '"'"'#111111'"'"
 => echo 'test ' + "'" + '#111111' + "'" + ' -bg ' + "'" + '#111111' + "'"
 
 
+#------------------------
+# Repeat command execution
+seq 10 |xargs -I{} curl -G "https://httpbin.org/get"
+# Parallel
+seq 10 |xargs -I{} -P3 curl -G "https://httpbin.org/get"
+
+
 
 #------------------------
 # Command pattern: Pararel execution
