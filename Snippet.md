@@ -126,7 +126,7 @@ echo "${LINE_COUNT}"
 
 #------------------------
 # Multiple If one line
-{ [[ 10 -le 10 ]] && [[ -e "/tmp/aaa.txt" ]]; } && { echo "=> file PARAM_A exists."; }
+{ [[ 10 -le 10 ]] && [[ -e "/tmp/aaa.txt" ]]; } && { echo "=> file /tmp/aaa.txt exists."; }
 
 
 
