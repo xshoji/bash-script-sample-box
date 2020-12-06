@@ -302,7 +302,7 @@ aaabbbcccccc
 
 
 #------------------------
-# Match NOT xxx lines
+# Match not xxx lines then replace by regex
 echo -e "aaaa\n/bbbb\nccccc" |sed "/^\//! s/^/\//g"
 ```
 
