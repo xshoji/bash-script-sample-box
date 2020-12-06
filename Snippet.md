@@ -170,7 +170,7 @@ SCRIPT_FILE_NAME=${BASH_SOURCE_PATH##*/}
 
 #------------------------
 # Show full path file list
-ls -altR -d $(find `pwd`)
+ls -a |xargs -I{} echo $(pwd)/{}
 ```
 
 
