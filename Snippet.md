@@ -2,7 +2,7 @@
 
 ## Basic
 
-```
+```bash
 #!/bin/bash
 
 #------------------------
@@ -57,7 +57,7 @@ echo "1,10,arg1,arg2" |awk -F',' '{ system("seq -f \"%02g\" "$1" "$2" |xargs -I{
 
 ## Array
 
-```
+```bash
 #!/bin/bash
 
 #------------------------
@@ -108,7 +108,7 @@ echo "${LINE_COUNT}"
 
 ## If
 
-```
+```bash
 #!/bin/bash
 
 #------------------------
