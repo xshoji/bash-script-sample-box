@@ -336,9 +336,19 @@ echo "10 * (20 + 10) / 12398" |xargs -I{} bash -c 'printf "%.3f\n" $(awk "BEGIN 
 
 #------------------------
 # Group by and sum
-echo -e "aaa\t10\naaa\t20\naaa\t15\nbbb\t1.2\nbbb\t2.86\nbbb\t99.01" |awk '{map[$1]+=$2; counts[$1]++;} END { for(i in map){ print i, map[i], counts[$1], map[i] / counts[i]; } }'
-bbb 103.07 3 34.3567
-aaa 45 3 15
+echo -e "aaa\t10\naaa\t20\naaa\t15\nbbb\t1.2\nbbb\t2.86\nbbb\t99.01" |awk '{map[$1]+=$2;} END { for(i in map){ print i, map[i];} }'
+bbb 103.07
+aaa 45
+
+# Group by and sum and count
+echo -e "aaa\t10\naaa\t20\naaa\t15\nbbb\t1.2\nbbb\t2.86\nbbb\t99.01" |awk '{map[$1]+=$2;mapCount[$1]++;} END { for(i in map){ print i, map[i], mapCount[i];} }'
+bbb 103.07 3
+aaa 45 3
+
+# Group by and average
+echo -e "aaa\t10\naaa\t20\naaa\t15\nbbb\t1.2\nbbb\t2.86\nbbb\t99.01" |awk '{map[$1]+=$2;mapCount[$1]++;} END { for(i in map){ print i, map[i] / mapCount[i];} }'
+bbb 34.3567
+aaa 15
 
 
 
