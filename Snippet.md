@@ -331,6 +331,22 @@ awk 'BEGIN {printf "%.0f\n", 10 * 20 + 10}'
 
 echo "10 * (20 + 10) / 12398" |xargs -I{} bash -c 'printf "%.3f\n" $(awk "BEGIN {print {}}")'
 0.024
+
+
+
+#------------------------
+# Group by and sum
+echo -e "aaa\t10\naaa\t20\naaa\t15\nbbb\t1.2\nbbb\t2.86\nbbb\t99.01" |awk '{map[$1]+=$2; counts[$1]++;} END { for(i in map){ print i, map[i], counts[$1], map[i] / counts[i]; } }'
+bbb 103.07 3 34.3567
+aaa 45 3 15
+
+
+
+#------------------------
+# Filter by numbers
+echo -e "aaa\t10\naaa\t20\naaa\t15\nbbb\t1.2\nbbb\t2.86\nbbb\t99.01" |awk '{if($2 > 10 && $2 < 50) print}'
+aaa	20
+aaa	15
 ```
 
 
@@ -377,22 +393,6 @@ d="20150120"; while [[ "${d}" != "20150220" ]]; do echo $d; d=$(date -j -f %Y%m%
 SECONDS=0
 sleep 3
 echo "Sleep ${SECONDS} [sec]"
-
-
-
-#------------------------
-# Group by and sum
-echo -e "aaa\t10\naaa\t20\naaa\t15\nbbb\t1.2\nbbb\t2.86\nbbb\t99.01"
-aaa	10
-aaa	20
-aaa	15
-bbb	1.2
-bbb	2.86
-bbb	99.01
-
-echo -e "aaa\t10\naaa\t20\naaa\t15\nbbb\t1.2\nbbb\t2.86\nbbb\t99.01" |awk '{map[$1]+=$2; counts[$1]++;} END { for(i in map){ print i, map[i], counts[$1], map[i] / counts[i]; } }'
-bbb 103.07 3 34.3567
-aaa 45 3 15
 ```
 
 
