@@ -313,9 +313,9 @@ echo -e "aaa\t%bbb\tccc\naaa\t%ddd\tccc" |awk '{ print $1, substr($2, 2), $3}'
 aaa bbb ccc
 aaa ddd ccc
 
-echo -e "aaa\t%bbb\tccc\naaa\t%ddd\tccc" |awk '{ print $1, substr($2, -1, 2), $3}'
-aaa %b ccc
-aaa %d ccc
+echo -e "aaa\t%bbb\tccc\naaa\t%ddd\tccc" |awk '{ print $1, substr($2, 2, 2), $3}'
+aaa bb ccc
+aaa dd ccc
 
 echo -e "aaa\t%bbb\tccc\naaa\t%ddd\tccc" |awk '{ print $1, substr($2, 0, 2), $3}'
 aaa %b ccc
