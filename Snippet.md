@@ -445,15 +445,15 @@ echo $((RANDOM%100+101)) # 100～200までの範囲で出力する
 
 #------------------------
 # Random string [base64]
-$ echo "30" |xargs -I{} bash -c "openssl rand -base64 {} | awk '{ printf \"%s\", $0 } END { print }' |cut -c -{}"
-0TfggxJyHxNSDGmgSc4eVHCReXln2r
+$ echo "30" |xargs -I{} bash -c "openssl rand -base64 {} | awk '{ printf \"%s\", \$1 } END { print }' |cut -c -{}"
+n5RGiXWk73ohs1dkbCNkFLV2cMJZKS
 
 
 
 #------------------------
 # Random string [hex]
-$ echo "30" |xargs -I{} bash -c "openssl rand -hex {} | awk '{ printf \"%s\", $0 } END { print }' |cut -c -{}"
-0981cefb1c285827fa2e59674c4dfb
+$ echo "30" |xargs -I{} bash -c "openssl rand -hex {} | awk '{ printf \"%s\", \$1 } END { print }' |cut -c -{}"
+1323b183716b1e07eb5d5f820d32c3
 
 
 
