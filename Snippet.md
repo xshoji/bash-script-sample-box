@@ -296,8 +296,8 @@ cat test |sed '/^$/d'
 
 #------------------------
 # Delete new lines ( Multiple lines to One line )
-echo -e "aaa\nbbb\nccc" | awk '{ printf "%s", $0 } END { print }'
-aaabbbcccccc
+echo -e "aaa\nbbb\nccc" | awk '{ printf "%s", $0 } END { print "" }'
+aaabbbccc
 
 
 
