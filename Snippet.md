@@ -281,12 +281,18 @@ echo "/aaa/bbb/ccc:{aaa:bbb,ccc:ddd}" |sed 's/.*ccc:{/{/1'
 
 #------------------------
 # Replace \n to new lines
+# pattern 1 https://stackoverflow.com/questions/10748453/replace-comma-with-newline-in-sed-on-macos?rq=1
+echo "aaa\nbbb\nccc" | sed -e $'s/\\\\n/\\\n/g'
+aaa
+bbb
+ccc
+
+# pattern 2
 echo "aaa\nbbb\nccc" | sed 's/\\n/\'$'\n/g'
 aaa
 bbb
 ccc
 
-https://stackoverflow.com/questions/10748453/replace-comma-with-newline-in-sed-on-macos?rq=1
 
 
 #------------------------
