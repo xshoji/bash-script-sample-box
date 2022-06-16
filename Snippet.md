@@ -271,6 +271,11 @@ echo '... "artistId":462006, ... "artistName":"ボブ・ディラン", ... "arti
 462006 | ボブ・ディラン | https://itunes.apple.com/jp/artist/...?uo=4
 
 
+#------------------------
+# Extract matched start and end strings (Shortest match)
+echo '"aaa":"bbb","ccc":"ddd ( " , "x","111":"222","eee":"fff","ggg":aaaa"' |perl -pe 's/^.*("ccc":")(.*?)",".*$/\2/g'
+ddd ( " , "x
+
 
 #------------------------
 # Delete matched string first time only
