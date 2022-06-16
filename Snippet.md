@@ -273,7 +273,7 @@ echo '... "artistId":462006, ... "artistName":"ボブ・ディラン", ... "arti
 
 #------------------------
 # Extract matched start and end strings (Shortest match)
-echo '"aaa":"bbb","ccc":"ddd ( " , "x","111":"222","eee":"fff","ggg":aaaa"' |perl -pe 's/^.*("ccc":")(.*?)",".*$/\2/g'
+echo '"aaa":"bbb","ccc":"ddd ( " , "x","111":"222","eee":"fff","ggg":aaaa"' |perl -pe 's/^.*"ccc":"(.*?)",".*$/\1/g'
 ddd ( " , "x
 
 
