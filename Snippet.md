@@ -559,6 +559,7 @@ echo '{"name":"taro","age":16,"tags":["aaa","bbb","ccc"]}' | python -c "import s
 ```bash
 #------------------------
 # Parse yaml by perl
+# Read value
 cat /tmp/a.yaml; echo
 aaa:
   bbb:
@@ -569,6 +570,18 @@ cat /tmp/a.yaml |perl -MYAML::XS="Load" -MData::Dumper -e 'print Dumper(Load(joi
 $VAR1 = 'a';
 cat /tmp/a.yaml |perl -MYAML::XS="Load" -e 'print Load(join "", <STDIN>)->{"aaa"}->{"bbb"}[0]'
 a
+
+# Print keys
+cat /tmp/a.yaml
+aaa:
+  bbb: null
+  ccc: null
+  ddd: null
+cat /tmp/a.yaml |perl -MYAML::XS="Load" -e 'print join "\n", keys %{Load(join "", <STDIN>)->{"aaa"}}';echo
+ddd
+bbb
+ccc
+
 
 
 #------------------------
