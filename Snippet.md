@@ -537,6 +537,8 @@ timeout 2 bash -c "</dev/tcp/canyouseeme.org/80"; echo $?
 # Parse json by perl
 echo '{"name":"taro","age":16,"tags":["aaa","bbb","ccc"]}' |perl -MLWP::Simple -MData::Dumper -MJSON -e 'print Dumper(decode_json(<STDIN>)->{tags}[0])'
 $VAR1 = 'aaa';
+echo '{"name":"taro","age":16,"tags":["aaa","bbb","ccc"]}' |perl -MJSON -e 'print decode_json(<STDIN>)->{tags}[0]'
+aaa
 
 #------------------------
 # Parse json by python
@@ -557,15 +559,16 @@ echo '{"name":"taro","age":16,"tags":["aaa","bbb","ccc"]}' | python -c "import s
 ```bash
 #------------------------
 # Parse yaml by perl
-$ cat /tmp/a.yaml; echo
+cat /tmp/a.yaml; echo
 aaa:
   bbb:
     - a
     - b
     - c
-$ cat /tmp/a.yaml |perl -MYAML::XS="Load" -MData::Dumper -MJSON -e 'print Dumper(Load(join "", <STDIN>)->{"aaa"}->{"bbb"}[0])'
+cat /tmp/a.yaml |perl -MYAML::XS="Load" -MData::Dumper -e 'print Dumper(Load(join "", <STDIN>)->{"aaa"}->{"bbb"}[0])'
 $VAR1 = 'a';
-
+$ cat /tmp/a.yaml |perl -MYAML::XS="Load" -e 'print Load(join "", <STDIN>)->{"aaa"}->{"bbb"}[0]'
+a
 
 
 #------------------------
