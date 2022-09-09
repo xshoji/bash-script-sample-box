@@ -551,6 +551,19 @@ echo '{"name":"taro","age":16,"tags":["aaa","bbb","ccc"]}' | python -c "import s
 
 ```bash
 #------------------------
+# Parse yaml by perl
+$ cat /tmp/a.yaml; echo
+aaa:
+  bbb:
+    - a
+    - b
+    - c
+$ cat /tmp/a.yaml |perl -MYAML::XS="Load" -MData::Dumper -MJSON -e 'print Dumper(Load(join "", <STDIN>)->{"aaa"}->{"bbb"}[0])'
+$VAR1 = 'a';
+
+
+
+#------------------------
 # Parse yaml by ruby
 echo -e "name: taro\nage: 16\ntags:\n  - aaa\n  - bbb\n  - ccc" |ruby -ryaml -e "puts YAML.load(STDIN.read)['tags'][0]"
 ```
