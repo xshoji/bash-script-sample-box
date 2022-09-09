@@ -534,6 +534,11 @@ timeout 2 bash -c "</dev/tcp/canyouseeme.org/80"; echo $?
 
 ```bash
 #------------------------
+# Parse json by perl
+echo '{"name":"taro","age":16,"tags":["aaa","bbb","ccc"]}' |perl -MLWP::Simple -MData::Dumper -MJSON -e 'print Dumper(decode_json(<STDIN>)->{tags}[0])'
+$VAR1 = 'aaa';
+
+#------------------------
 # Parse json by python
 echo '{"name":"taro","age":16,"tags":["aaa","bbb","ccc"]}' | python -c "import sys, json; print json.load(sys.stdin)['tags'][0]"
 ```
