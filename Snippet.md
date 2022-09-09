@@ -332,6 +332,13 @@ aaa dd ccc
 echo -e "aaa\t%bbb\tccc\naaa\t%ddd\tccc" |awk '{ print $1, substr($2, 0, 2), $3}'
 aaa %b ccc
 aaa %d ccc
+
+
+
+
+#------------------------
+# Trim white space
+echo "   aaaa  " |perl -pe 's/^\s+|\s+$//g'
 ```
 
 
