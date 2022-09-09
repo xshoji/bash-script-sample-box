@@ -554,4 +554,4 @@ echo '{"name":"taro","age":16,"tags":["aaa","bbb","ccc"]}' | python -c "import s
 # Parse yaml by ruby
 echo -e "name: taro\nage: 16\ntags:\n  - aaa\n  - bbb\n  - ccc" |ruby -ryaml -e "puts YAML.load(STDIN.read)['tags'][0]"
 ```
-```
+
