@@ -567,7 +567,7 @@ aaa:
     - c
 cat /tmp/a.yaml |perl -MYAML::XS="Load" -MData::Dumper -e 'print Dumper(Load(join "", <STDIN>)->{"aaa"}->{"bbb"}[0])'
 $VAR1 = 'a';
-$ cat /tmp/a.yaml |perl -MYAML::XS="Load" -e 'print Load(join "", <STDIN>)->{"aaa"}->{"bbb"}[0]'
+cat /tmp/a.yaml |perl -MYAML::XS="Load" -e 'print Load(join "", <STDIN>)->{"aaa"}->{"bbb"}[0]'
 a
 
 
