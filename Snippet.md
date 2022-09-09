@@ -337,7 +337,7 @@ aaa %d ccc
 
 
 #------------------------
-# Trim white space
+# Trim whitespace
 echo "   aaaa  " |perl -pe 's/^\s+|\s+$//g'
 ```
 
