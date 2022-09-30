@@ -119,15 +119,19 @@ echo "${LINE_COUNT}"
 #!/bin/bash
 
 #------------------------
+# If one line
+VAR_A="false"
+if [[ "${VAR_A}" == "true" ]]; then echo "ok"; else echo "ng"; fi
+
+
+#------------------------
 # Exists variable
 [[ "${VAR_A+x}" == "" ]] && { echo "=> var VAR_A is not defined."; }
-
 
 
 #------------------------
 # Multiple If one line
 { [[ 10 -le 10 ]] && [[ -e "/tmp/aaa.txt" ]]; } && { echo "A && B = true"; }
-
 
 
 #------------------------
