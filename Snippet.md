@@ -590,6 +590,13 @@ ddd
 bbb
 ccc
 
+# Update value
+cat /tmp/a.yaml |perl -MYAML::XS="Load" -MYAML::XS="Dump" -e 'my $y = Load(join "", <STDIN>); $y->{"aaa"}->{"bbb"} = "linux"; print Dump($y);'
+---
+aaa:
+  bbb: linux
+  ccc: ~
+  ddd: ~
 
 
 #------------------------
