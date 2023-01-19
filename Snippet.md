@@ -604,3 +604,14 @@ aaa:
 echo -e "name: taro\nage: 16\ntags:\n  - aaa\n  - bbb\n  - ccc" |ruby -ryaml -e "puts YAML.load(STDIN.read)['tags'][0]"
 ```
 
+
+## Perl
+
+```perl
+# Get command line arguments (-E: enable 'say' function that adds new line to last string.)
+perl -E 'my $a=@ARGV[0]; say $a' aaaa
+aaaa
+
+# Set variable from command line parameters. (-s)
+perl -sE 'say $s' -- -s="aiueo"
+```
