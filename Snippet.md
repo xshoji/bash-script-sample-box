@@ -566,33 +566,36 @@ echo '{"name":"taro","age":16,"tags":["aaa","bbb","ccc"]}' | python -c "import s
 #------------------------
 # Parse yaml by perl
 # Read value
-cat /tmp/a.yaml; echo
+echo -e "aaa:\n  bbb:\n    - a\n    - b\n    - c"
 aaa:
   bbb:
     - a
     - b
     - c
-cat /tmp/a.yaml |perl -MYAML="Load" -MData::Dumper -e 'print Dumper(Load(join "", <STDIN>)->{"aaa"}->{"bbb"}[0])'
+echo -e "aaa:\n  bbb:\n    - a\n    - b\n    - c" |perl -MYAML="Load" -MData::Dumper -e 'print Dumper(Load(join "", <STDIN>)->{"aaa"}->{"bbb"}[0])'
 $VAR1 = 'a';
+
 # -E: enable 'say' function that adds new line to last string.
-cat /tmp/a.yaml |perl -MYAML="Load" -E 'say Load(join "", <STDIN>)->{"aaa"}->{"bbb"}[0]'
+echo -e "aaa:\n  bbb:\n    - a\n    - b\n    - c" |perl -MYAML="Load" -E 'say Load(join "", <STDIN>)->{"aaa"}->{"bbb"}[0]'
 a
-cat /tmp/a.yaml |perl -MYAML="Load" -E 'say scalar @{Load(join "", <STDIN>)->{"aaa"}->{"bbb"}}'
+
+# Print list size
+echo -e "aaa:\n  bbb:\n    - a\n    - b\n    - c" |perl -MYAML="Load" -E 'say scalar @{Load(join "", <STDIN>)->{"aaa"}->{"bbb"}}'
 3
 
 # Print keys
-cat /tmp/a.yaml
+echo -e "aaa:\n  bbb: null\n  ccc: null\n  ddd: null"
 aaa:
   bbb: null
   ccc: null
   ddd: null
-cat /tmp/a.yaml |perl -MYAML="Load" -e 'print join "\n", keys %{Load(join "", <STDIN>)->{"aaa"}}';echo
+echo -e "aaa:\n  bbb: null\n  ccc: null\n  ddd: null" |perl -MYAML="Load" -e 'print join "\n", keys %{Load(join "", <STDIN>)->{"aaa"}}';echo
 ddd
 ccc
 bbb
 
 # Update value
-cat /tmp/a.yaml |perl -MYAML="Load" -MYAML="Dump" -e 'my $y = Load(join "", <STDIN>); $y->{"aaa"}->{"bbb"} = "linux"; print Dump($y);'
+echo -e "aaa:\n  bbb: null\n  ccc: null\n  ddd: null" |perl -MYAML="Load" -MYAML="Dump" -e 'my $y = Load(join "", <STDIN>); $y->{"aaa"}->{"bbb"} = "linux"; print Dump($y);'
 ---
 aaa:
   bbb: linux
