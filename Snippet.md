@@ -572,11 +572,12 @@ aaa:
     - a
     - b
     - c
-cat /tmp/a.yaml |perl -MYAML::XS="Load" -MData::Dumper -e 'print Dumper(Load(join "", <STDIN>)->{"aaa"}->{"bbb"}[0])'
+cat /tmp/a.yaml |perl -MYAML="Load" -MData::Dumper -e 'print Dumper(Load(join "", <STDIN>)->{"aaa"}->{"bbb"}[0])'
 $VAR1 = 'a';
-cat /tmp/a.yaml |perl -MYAML::XS="Load" -e 'print Load(join "", <STDIN>)->{"aaa"}->{"bbb"}[0]'
+# -E: enable 'say' function that adds new line to last string.
+cat /tmp/a.yaml |perl -MYAML="Load" -E 'say Load(join "", <STDIN>)->{"aaa"}->{"bbb"}[0]'
 a
-cat /tmp/a.yaml |perl -MYAML::XS="Load" -e 'print scalar @{Load(join "", <STDIN>)->{"aaa"}->{"bbb"}}'
+cat /tmp/a.yaml |perl -MYAML="Load" -E 'say scalar @{Load(join "", <STDIN>)->{"aaa"}->{"bbb"}}'
 3
 
 # Print keys
@@ -585,18 +586,18 @@ aaa:
   bbb: null
   ccc: null
   ddd: null
-cat /tmp/a.yaml |perl -MYAML::XS="Load" -e 'print join "\n", keys %{Load(join "", <STDIN>)->{"aaa"}}';echo
+cat /tmp/a.yaml |perl -MYAML="Load" -e 'print join "\n", keys %{Load(join "", <STDIN>)->{"aaa"}}';echo
 ddd
-bbb
 ccc
+bbb
 
 # Update value
-cat /tmp/a.yaml |perl -MYAML::XS="Load" -MYAML::XS="Dump" -e 'my $y = Load(join "", <STDIN>); $y->{"aaa"}->{"bbb"} = "linux"; print Dump($y);'
+cat /tmp/a.yaml |perl -MYAML="Load" -MYAML="Dump" -e 'my $y = Load(join "", <STDIN>); $y->{"aaa"}->{"bbb"} = "linux"; print Dump($y);'
 ---
 aaa:
   bbb: linux
-  ccc: ~
-  ddd: ~
+  ccc: null
+  ddd: null
 
 
 #------------------------
