@@ -562,6 +562,14 @@ echo '{"name":"taro","age":16,"tags":["aaa","bbb","ccc"]}' | python -c "import s
 
 ## Yaml
 
+```
+# centos
+# * How to install YAML.pm? | ResearchGate https://www.researchgate.net/post/How-to-install-YAMLpm
+# * command-not-found.com – cpanm https://command-not-found.com/cpanm
+yum -y install cpanminus
+cpanm YAML
+```
+
 ```bash
 #------------------------
 # Parse yaml by perl
