@@ -567,19 +567,13 @@ echo '{"name":"taro","age":16,"tags":["aaa","bbb","ccc"]}' | python -c "import s
 # * How to install YAML.pm? | ResearchGate https://www.researchgate.net/post/How-to-install-YAMLpm
 # * command-not-found.com – cpanm https://command-not-found.com/cpanm
 yum -y install cpanminus
-cpanm YAML
+cpanm YAML::PP
 ```
 
 ```bash
 #------------------------
 # Parse yaml by perl
 # Read value
-echo -e "aaa:\n  bbb:\n    - a\n    - b\n    - c"
-aaa:
-  bbb:
-    - a
-    - b
-    - c
 echo -e "aaa:\n  bbb:\n    - a\n    - b\n    - c" |perl -MYAML="Load" -MData::Dumper -e 'print Dumper(Load(join "", <STDIN>)->{"aaa"}->{"bbb"}[0])'
 $VAR1 = 'a';
 
@@ -603,7 +597,7 @@ ccc
 bbb
 
 # Update value
-echo -e "aaa:\n  bbb: null\n  ccc: null\n  ddd: null" |perl -MYAML="Load" -MYAML="Dump" -e 'my $y = Load(join "", <STDIN>); $y->{"aaa"}->{"bbb"} = "linux"; print Dump($y);'
+echo -e "aaa:\n  bbb: null\n  ccc: null\n  ddd: null" |perl -MYAML="Load" -MYAML="Dump" -e '$y=Load(join "", <STDIN>);$y->{"aaa"}->{"bbb"}="linux"; print Dump($y);'
 ---
 aaa:
   bbb: linux
@@ -621,17 +615,17 @@ echo -e "name: taro\nage: 16\ntags:\n  - aaa\n  - bbb\n  - ccc" |ruby -ryaml -e 
 
 ```perl
 # Get command line arguments (-E: enable 'say' function that adds new line to last string.)
-perl -E 'my $a=@ARGV[0]; say $a' aaaa
+perl -E '$a=@ARGV[0]; say $a' aaaa
 aaaa
 
 # Set variable from command line parameters. (-s)
 perl -sE 'say $s' -- -s="aiueo"
 
 # use module ( use YAML::PP )
-perl -MYAML::PP -e 'my $p=YAML::PP->new;'
+perl -MYAML::PP -e '$p=YAML::PP->new;'
 
 # use module omitting ( use YAML::PP, use use YAML::PP::Common qa/ :PRESERVE /  )
-perl -MYAML::PP -MYAML::PP::Common=":PRESERVE" -e 'my $p = YAML::PP->new( preserve => PRESERVE_ORDER )'
+perl -MYAML::PP -MYAML::PP::Common=":PRESERVE" -e '$p = YAML::PP->new( preserve => PRESERVE_ORDER )'
 
 # Read all stdin as string variable
 echo -e "aaa:\n  bbb:\n    - a\n    - b\n    - c" |perl -e '$s=join("", <STDIN>); print $s'
