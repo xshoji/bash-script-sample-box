@@ -567,13 +567,14 @@ echo '{"name":"taro","age":16,"tags":["aaa","bbb","ccc"]}' | python -c "import s
 # * How to install YAML.pm? | ResearchGate https://www.researchgate.net/post/How-to-install-YAMLpm
 # * command-not-found.com – cpanm https://command-not-found.com/cpanm
 yum -y install cpanminus
+cpanm YAML
 cpanm YAML::PP
 ```
 
 ```bash
 #------------------------
 # Parse yaml by perl
-# Read value
+# Read value 
 echo -e "aaa:\n  bbb:\n    - a\n    - b\n    - c" |perl -MYAML="Load" -MData::Dumper -e 'print Dumper(Load(join "", <STDIN>)->{"aaa"}->{"bbb"}[0])'
 $VAR1 = 'a';
 
@@ -585,16 +586,11 @@ a
 echo -e "aaa:\n  bbb:\n    - a\n    - b\n    - c" |perl -MYAML="Load" -E 'say scalar @{Load(join "", <STDIN>)->{"aaa"}->{"bbb"}}'
 3
 
-# Print keys
-echo -e "aaa:\n  bbb: null\n  ccc: null\n  ddd: null"
-aaa:
-  bbb: null
-  ccc: null
-  ddd: null
-echo -e "aaa:\n  bbb: null\n  ccc: null\n  ddd: null" |perl -MYAML="Load" -e 'print join "\n", keys %{Load(join "", <STDIN>)->{"aaa"}}';echo
-ddd
-ccc
+# Print keys ( YAML::PP keeps hash keys order )
+echo -e "aaa:\n  bbb: null\n  ccc: null\n  ddd: null" |perl -MYAML::PP -MYAML::PP::Common=":PRESERVE" -E '$p=YAML::PP->new( preserve => PRESERVE_ORDER | PRESERVE_SCALAR_STYLE);say join("\n", keys %{$p->load_string(join("",<STDIN>))->{"aaa"}});'
 bbb
+ccc
+ddd
 
 # Update value
 echo -e "aaa:\n  bbb: null\n  ccc: null\n  ddd: null" |perl -MYAML="Load" -MYAML="Dump" -e '$y=Load(join "", <STDIN>);$y->{"aaa"}->{"bbb"}="linux"; print Dump($y);'
