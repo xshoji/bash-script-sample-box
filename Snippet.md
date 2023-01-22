@@ -601,12 +601,12 @@ aaa:
   ddd: 'string'
 
 # Update value
-echo -e "aaa:\n  bbb: null\n  ccc: null\n  ddd: null" |perl -MYAML="Load" -MYAML="Dump" -e '$y=Load(join "", <STDIN>);$y->{"aaa"}->{"bbb"}="linux"; print Dump($y);'
+echo -e "aaa:\n  bbb: null\n  ccc: \"string\"\n  ddd: 'string'" |perl -MYAML::PP="Load" -MYAML::PP="Dump" -e '$y=Load(join("",<STDIN>));$v="update";$y->{"aaa"}->{"bbb"}=$v;print Dump $y;'
 ---
 aaa:
-  bbb: linux
-  ccc: null
-  ddd: null
+  bbb: update
+  ccc: string
+  ddd: string
 
 
 #------------------------
