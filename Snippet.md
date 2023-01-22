@@ -626,4 +626,10 @@ aaaa
 
 # Set variable from command line parameters. (-s)
 perl -sE 'say $s' -- -s="aiueo"
+
+# use module ( use YAML::PP )
+perl -MYAML::PP -e 'my $p=YAML::PP->new;'
+
+# use module omitting ( use YAML::PP, use use YAML::PP::Common qa/ :PRESERVE /  )
+perl -MYAML::PP -MYAML::PP::Common=":PRESERVE" -e 'my $p = YAML::PP->new( preserve => PRESERVE_ORDER )'
 ```
