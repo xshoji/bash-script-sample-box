@@ -587,10 +587,18 @@ echo -e "aaa:\n  bbb:\n    - a\n    - b\n    - c" |perl -MYAML="Load" -E 'say sc
 3
 
 # Print keys ( YAML::PP keeps hash keys order )
-echo -e "aaa:\n  bbb: null\n  ccc: null\n  ddd: null" |perl -MYAML::PP -MYAML::PP::Common=":PRESERVE" -E '$p=YAML::PP->new( preserve => PRESERVE_ORDER | PRESERVE_SCALAR_STYLE);say join("\n", keys %{$p->load_string(join("",<STDIN>))->{"aaa"}});'
+echo -e "aaa:\n  bbb: null\n  ccc: null\n  ddd: null" |perl -MYAML::PP -MYAML::PP::Common=":PRESERVE" -E '$p=YAML::PP->new(preserve=>PRESERVE_ORDER);say join("\n", keys %{$p->load_string(join("",<STDIN>))->{"aaa"}});'
 bbb
 ccc
 ddd
+
+# Print quoted string ( YAML::PP keeps string quotes )
+echo -e "aaa:\n  bbb: null\n  ccc: \"string\"\n  ddd: 'string'" |perl -MYAML::PP -MYAML::PP::Common=":PRESERVE" -e '$p=YAML::PP->new(preserve=>PRESERVE_SCALAR_STYLE);$y=$p->load_string(join("",<STDIN>));print $p->dump_string($y);'
+---
+aaa:
+  bbb: null
+  ccc: "string"
+  ddd: 'string'
 
 # Update value
 echo -e "aaa:\n  bbb: null\n  ccc: null\n  ddd: null" |perl -MYAML="Load" -MYAML="Dump" -e '$y=Load(join "", <STDIN>);$y->{"aaa"}->{"bbb"}="linux"; print Dump($y);'
