@@ -632,4 +632,14 @@ perl -MYAML::PP -e 'my $p=YAML::PP->new;'
 
 # use module omitting ( use YAML::PP, use use YAML::PP::Common qa/ :PRESERVE /  )
 perl -MYAML::PP -MYAML::PP::Common=":PRESERVE" -e 'my $p = YAML::PP->new( preserve => PRESERVE_ORDER )'
+
+# Read all stdin as string variable
+echo -e "aaa:\n  bbb:\n    - a\n    - b\n    - c" |perl -e '$s=join("", <STDIN>); print $s'
+aaa:
+  bbb:
+    - a
+    - b
+    - c
+
+
 ```
