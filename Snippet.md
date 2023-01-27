@@ -474,8 +474,8 @@ FJV1byUp5HISiXaVhHvnCj4J9YWTjPue
 
 
 #------------------------
-# Random string [hex]
-$ openssl rand -hex 16 ( length:32 )
+# Random string [hex] ( length:32 )
+$ openssl rand -hex 16
 310b39affede98f2c8f4ab3f331b0aac
 
 
