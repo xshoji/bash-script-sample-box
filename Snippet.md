@@ -467,16 +467,16 @@ echo $((RANDOM%100+101)) # 100～200までの範囲で出力する
 
 
 #------------------------
-# Random string [base64]
-$ echo "30" |xargs -I{} bash -c "openssl rand -base64 {} | awk '{ printf \"%s\", \$1 } END { print }' |cut -c -{}"
-n5RGiXWk73ohs1dkbCNkFLV2cMJZKS
+# Random string [base64] ( length:32 )
+$ openssl rand -base64 24 |cut -c -32
+FJV1byUp5HISiXaVhHvnCj4J9YWTjPue
 
 
 
 #------------------------
 # Random string [hex]
-$ echo "30" |xargs -I{} bash -c "openssl rand -hex {} | awk '{ printf \"%s\", \$1 } END { print }' |cut -c -{}"
-1323b183716b1e07eb5d5f820d32c3
+$ openssl rand -hex 16 ( length:32 )
+310b39affede98f2c8f4ab3f331b0aac
 
 
 
