@@ -452,6 +452,32 @@ echo "Sleep ${SECONDS} [sec]"
 
 
 
+## Line handling
+
+```bash
+# Adds new line every 2 lines.
+echo -e "1111\n2222\n3333\n4444" |awk '(NR%2==0){$0=$0"\n"}{print}'
+1111
+2222
+
+3333
+4444
+
+
+# Joins 2 lines every 2 lines.
+echo -e "1111\n2222\n3333\n4444" |awk '(NR%2==0){$0=$0"\n"}{print}' |awk '{ printf ",%s", $0 } END { print }' |cut -c 2- |sed "s/,$//g" |sed "s/,,/\n/g"
+1111,2222
+3333,4444
+```
+
+
+
+
+
+
+
+
+
 
 ## Utility
 
