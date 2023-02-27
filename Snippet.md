@@ -389,6 +389,10 @@ echo -e "aaa\t10\naaa\t20\naaa\t15\nbbb\t1.2\nbbb\t2.86\nbbb\t99.01" |awk '{map[
 bbb 34.3567
 aaa 15
 
+# Count by string
+echo -e "aaa\tOK\nbbb\tOK\nccc\tNG" |awk -F"\t" 'NR>0{all+=1}$2~/.*NG/{ng+=1}END{ printf "%.2f\n", ng/all*100 }'
+33.33
+
 
 
 #------------------------
