@@ -460,7 +460,7 @@ echo "Sleep ${SECONDS} [sec]"
 
 ```bash
 # Adds new line every 2 lines.
-echo -e "1111\n2222\n3333\n4444" |awk '(NR%2==0){$0=$0"\n"}{print}'
+echo -e "1111\n2222\n3333\n4444" |awk '{if(NR%2)ORS="\n";else ORS="\n\n";print}'
 1111
 2222
 
