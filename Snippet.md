@@ -639,9 +639,18 @@ aaa:
   ddd: string
 
 
+
 #------------------------
 # Parse yaml by ruby
 echo -e "name: taro\nage: 16\ntags:\n  - aaa\n  - bbb\n  - ccc" |ruby -ryaml -e "puts YAML.load(STDIN.read)['tags'][0]"
+aaa
+
+
+#------------------------
+# Parse yaml by pytho2.7
+yum install -y python-yaml
+echo -e "name: taro\nage: 16\ntags:\n  - aaa\n  - bbb\n  - ccc" |python -c 'import sys, yaml; print yaml.load(sys.stdin)["tags"][0]'
+aaa
 ```
 
 
