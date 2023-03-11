@@ -212,7 +212,7 @@ trap "{ rm -f ${TMP_FILE_PATH}; }" EXIT SIGINT
 
 #------------------------
 # Split file
-echo "input.tsv,10" |awk -F',' '{ system("split -l $(expr $(cat "$1" |wc -l)  / "$2" + 1) "$1" "$1"_part_") }'
+echo "input.tsv,10" |awk -F',' '{ system("split -b $(expr $(stat -f%z "$1")  / "$2" + 1) "$1" "$1"_part_") }'
 
 
 
