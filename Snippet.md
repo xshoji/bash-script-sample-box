@@ -459,6 +459,22 @@ echo "Sleep ${SECONDS} [sec]"
 ## Line handling
 
 ```bash
+# Joins multiple lines
+$ echo -e "aaa\nbbb\nccc\nddd" |awk '{printf "%s%s",sep,$0; sep=","}'; echo
+aaa,bbb,ccc,ddd
+
+
+
+
+
+# Joins multiple lines and add prefix and suffix.
+$ echo -e "aaa\nbbb\nccc\nddd" |awk 'NR==1{printf "{ "}{printf "%s%s",sep,$0; sep=","}END{print " }"}'
+{ aaa,bbb,ccc,ddd }
+
+
+
+
+
 # Adds new line every 2 lines.
 echo -e "1111\n2222\n3333\n4444" |awk '{if(NR%2)ORS="\n";else ORS="\n\n";print}'
 1111
@@ -468,11 +484,15 @@ echo -e "1111\n2222\n3333\n4444" |awk '{if(NR%2)ORS="\n";else ORS="\n\n";print}'
 4444
 
 
+
+
+
 # Joins 2 lines every 2 lines.
 echo -e "1111\n2222\n3333\n4444" |awk '{if(NR%2)ORS=",";else ORS="\n";print}'
 1111,2222
 3333,4444
 ```
+
 
 
 
