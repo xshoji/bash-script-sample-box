@@ -548,6 +548,14 @@ awk 'BEGIN{ for(i=0; i<2; i++){ for(j=0; j<2; j++){ printf("%-2.2d\t%-2.2d\n",i,
 function printColored() { local B="\033[0;"; local C=""; case "${1}" in "red") C="31m";; "green") C="32m";; "yellow") C="33m";; "blue") C="34m";; esac; printf "%b%b\033[0m" "${B}${C}" "${2}"; }
 printColored yellow "test"
 
+
+
+#------------------------
+# Print battery capacity
+# MacBook Proのバッテリーの劣化を調べる方法【Big Sur】 | one euro https://oneuro.net/macbook-pro-battery-health
+$ ioreg -c AppleSmartBattery | grep -i Capacity |awk '{printf "%s%s",sep,$0; sep=","}' |perl -pe 's/^.*(\"AppleRawMaxCapacitpacity\" = \d+).*$/\1\n\2\n/g'
+"AppleRawMaxCapacity" = 4299
+"DesignCapacity" = 5088
 ```
 
 
