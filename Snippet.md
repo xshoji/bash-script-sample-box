@@ -46,6 +46,9 @@ seq 10 |xargs -I{} -P3 curl -G "https://httpbin.org/get"
 echo "aaa bbb ccc ddd eeee fff gggg hhh iii jjj" |awk -v RS=" " '{print}' |sed '$d' |xargs -P5 -IXXX echo XXX
 
 
+
+# shell script - Parallelize a Bash FOR Loop - Unix & Linux Stack Exchange
+# https://unix.stackexchange.com/questions/103920/parallelize-a-bash-for-loop
 #------------------------
 # Command pattern: Pararel execution by for loop
 readonly MAX_PROCESS=4
