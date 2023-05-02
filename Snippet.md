@@ -513,7 +513,9 @@ echo -e "1111\n2222\n3333\n4444" |awk '{if(NR%2)ORS=",";else ORS="\n";print}'
 # [number]
 echo $RANDOM # 0～32767までの範囲で出力する
 echo $((RANDOM%100+101)) # 100～200までの範囲で出力する
-
+# How to generate random numbers in Bash | FOSS Linux
+# https://www.fosslinux.com/93771/generate-random-numbers-in-bash.htm
+MIN=0; MAX=10; echo $(( $(( $RANDOM % $(($MAX-$MIN+1)) )) + $MIN )) # 0～10までの範囲で出力する
 
 
 #------------------------
