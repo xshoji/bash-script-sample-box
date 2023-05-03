@@ -51,16 +51,8 @@ echo "aaa bbb ccc ddd eeee fff gggg hhh iii jjj" |awk -v RS=" " '{print}' |sed '
 # https://unix.stackexchange.com/questions/103920/parallelize-a-bash-for-loop
 #------------------------
 # Command pattern: Pararel execution by for loop
-readonly MAX_PROCESS=4
-(
-i=0
-for v in $(seq 1 50); do 
-   ((i=i%MAX_PROCESS)); ((i++==0)) && wait
-   bash -c "sec=$(echo $((RANDOM%10+11-11))); echo ${v} \${sec}; sleep \${sec}" & 
-done
-wait
-)
-
+# bach -c ... : main command
+MAX_PROCESS=5; (i=0; for v in $(seq 1 50); do ((i=i%MAX_PROCESS)); ((i++==0)) && wait;     bash -c "sec=$(echo $((RANDOM%10))); echo ${v} \${sec}; sleep \${sec}" &     done; wait )
 
 
 #------------------------
