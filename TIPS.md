@@ -795,3 +795,11 @@ ccc
 
 > sed による置換で改行\nを出力する - Qiita  
 > https://qiita.com/kkdd/items/725e53572bc69e4b51b7
+
+# macのバッテリーのキャパを調べる
+
+```
+$ ioreg -c AppleSmartBattery | grep -i Capacity |awk '{printf "%s%s",sep,$0; sep=","}' |perl -pe 's/^.*(\"AppleRawMaxCapacity\" = \d+).*(\"DesignCapacity\" = \d+).*$/\1\n\2\n/g'
+"AppleRawMaxCapacity" = 4294
+"DesignCapacity" = 5088
+```
