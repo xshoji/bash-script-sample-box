@@ -499,6 +499,17 @@ echo -e "1111\n2222\n3333\n4444" |awk '{if(NR%2)ORS="\n";else ORS="\n\n";print}'
 echo -e "1111\n2222\n3333\n4444" |awk '{if(NR%2)ORS=",";else ORS="\n";print}'
 1111,2222
 3333,4444
+
+
+
+
+
+# Random sort lines
+echo -e "aaa\nbbb\nccc\nddd" |perl -e 'print sort { (-1,1)[rand(2)] } <>'
+aaa
+bbb
+ddd
+ccc
 ```
 
 

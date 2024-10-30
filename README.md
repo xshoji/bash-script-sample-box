@@ -1,3 +1,3 @@
 # bash-script-sample-box
 
-Bashscript sample box.
+Bash script sample box.
