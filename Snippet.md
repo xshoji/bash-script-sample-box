@@ -577,7 +577,8 @@ printColored yellow "test"
 $ ioreg -c AppleSmartBattery | grep -i Capacity |awk '{printf "%s%s",sep,$0; sep=","}' |perl -pe 's/^.*(\"AppleRawMaxCapacitpacity\" = \d+).*$/\1\n\2\n/g'
 "AppleRawMaxCapacity" = 4299
 "DesignCapacity" = 5088
-```
+
+
 
 
 
@@ -585,6 +586,12 @@ $ ioreg -c AppleSmartBattery | grep -i Capacity |awk '{printf "%s%s",sep,$0; sep
 #------------------------
 # Create dummy file
 $ dd if=/dev/zero of=/tmp/dummyFile1GB.zip bs=1024k count=1024
+
+```
+
+
+
+
 
 
 
