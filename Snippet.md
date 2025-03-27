@@ -602,6 +602,19 @@ ssh hostname 'bash -s' < localscript.sh
 #------------------------
 # Check host and port
 timeout 2 bash -c "</dev/tcp/canyouseeme.org/80"; echo $?
+
+
+
+#------------------------
+# Exec command in background
+nohup ./app -p 8080 > app.log 2>&1 &
+
+
+
+#------------------------
+# Exec command in background ( limited resource )
+# -m 1048576 = 1024 * 1024 (kb) = 1G Memory 
+(ulimit -m 1048576; nohup ./app -p 8080 > app.log 2>&1) &
 ```
 
 
