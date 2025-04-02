@@ -587,6 +587,16 @@ $ ioreg -c AppleSmartBattery | grep -i Capacity |awk '{printf "%s%s",sep,$0; sep
 # Create dummy file
 $ dd if=/dev/zero of=/tmp/dummyFile1GB.zip bs=1024k count=1024
 
+
+
+
+
+#------------------------
+# Send a notification to Mac based on the value received from the server.
+$ curl -N -s -H "Accept: text/event-stream" https://server-sent-events-example.vercel.app/api/events-for-vercel \
+|grep --line-buffered "た" \
+|sed -u "s/data: /data=/g" \
+| while read line; do osascript -e "display notification \"Line: ${line}\" with title \"Test title\""; done
 ```
 
 
