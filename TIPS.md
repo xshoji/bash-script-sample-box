@@ -1,3 +1,13 @@
+# demo用動画を撮る
+
+> 「キャプチャにGifを貼るのはさすがにジジイっすよ」  
+> https://zenn.dev/ncdc/articles/gif-is-too-old-to-upload
+
+* `Command + Shit + 5` で録画開始
+* `ffmpeg -i demo.mov -c:v libx264 -crf 25 -preset medium output.mp4` で圧縮
+
+
+
 # スペース区切り（カンマ区切りとかもOK）を改行区切りに変換してxargsで並列処理する
 
 ```
