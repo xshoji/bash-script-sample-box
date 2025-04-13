@@ -4,7 +4,7 @@
 > https://zenn.dev/ncdc/articles/gif-is-too-old-to-upload
 
 * `Command + Shit + 5` で録画開始
-* `ffmpeg -i input.mov -c:v libx265 -crf 28 -preset veryslow output.mp4` で圧縮
+* `ffmpeg -i input.mov -c:v libx264 -crf 28 -preset veryslow output.mp4` で圧縮
     * `ffmpeg -i demo.mov -c:v libx264 -crf 25 -preset medium output.mp4` より遅いけど結構圧縮される
 
 
