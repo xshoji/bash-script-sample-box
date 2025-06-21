@@ -657,9 +657,17 @@ aaa
 echo '{"name":"taro","age":16,"tags":["aaa","bbb","ccc"]}' |perl -MJSON -e 'print scalar @{decode_json(<STDIN>)->{tags}}'
 3
 
+
 #------------------------
 # Parse json by python2.7
 echo '{"name":"taro","age":16,"tags":["aaa","bbb","ccc"]}' | python -c "import sys, json; print json.load(sys.stdin)['tags'][0]"
+aaa
+
+
+#------------------------
+# Parse json by python3.9
+echo '{"name":"taro","age":16,"tags":["aaa","bbb","ccc"]}' | python -c "import sys, json; print(json.load(sys.stdin)['tags'][0])"
+aaa
 ```
 
 
