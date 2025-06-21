@@ -658,7 +658,7 @@ echo '{"name":"taro","age":16,"tags":["aaa","bbb","ccc"]}' |perl -MJSON -e 'prin
 3
 
 #------------------------
-# Parse json by python
+# Parse json by python2.7
 echo '{"name":"taro","age":16,"tags":["aaa","bbb","ccc"]}' | python -c "import sys, json; print json.load(sys.stdin)['tags'][0]"
 ```
 
