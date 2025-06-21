@@ -732,6 +732,15 @@ aaa
 yum install -y python-yaml
 echo -e "name: taro\nage: 16\ntags:\n  - aaa\n  - bbb\n  - ccc" |python -c 'import sys, yaml; print yaml.load(sys.stdin)["tags"][0]'
 aaa
+
+
+#------------------------
+# Parse yaml by pytho3.9
+dnf install python
+dnf install python3-pip
+python3 -m pip install pyyaml
+echo -e "name: taro\nage: 16\ntags:\n  - aaa\n  - bbb\n  - ccc" |python3 -c 'import sys, yaml; print(yaml.load(sys.stdin,Loader=yaml.Loader)["tags"][0])'
+aaa
 ```
 
 
