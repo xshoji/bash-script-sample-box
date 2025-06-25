@@ -7,6 +7,12 @@
 * `ffmpeg -i input.mov -c:v libx264 -crf 28 -preset veryslow output.mp4` で圧縮
     * `ffmpeg -i demo.mov -c:v libx264 -crf 25 -preset medium output.mp4` より遅いけど結構圧縮される
 
+**gifも作りたい**
+
+* `ffmpeg -i video.mov -vf "fps=5,scale=860:-1:flags=lanczos" out.gif`
+    * `scale:860:-1` : 横幅が860, 高さはスペクト比維持
+    * `flags=lanczos` : 高品質なスケーリングの指定
+
 
 # スペース区切り（カンマ区切りとかもOK）を改行区切りに変換してxargsで並列処理する
 
