@@ -24,12 +24,14 @@
 
 **エンコード処理を右クリックメニューに追加する**
 
-Automatorの「クイックアクション」を新規作成し、「シェルスクリプトを実行」から以下のスクリプトを作成する
+Automatorの「クイックアクション」を新規作成し、「シェルスクリプトを実行」から以下のスクリプトを作成し「encode-video」などで保存する。
 
 ```
 # シェル: /bin/bash
 /usr/local/bin/HandBrakeCLI --preset "Very Fast 1080p30" -i "${1}" -o "${1/.mov/_out.mp4}"
 ```
+
+保存先は `/Users/user/Library/Services/encode-video.workflow` になる。 
 
 
 # スペース区切り（カンマ区切りとかもOK）を改行区切りに変換してxargsで並列処理する
