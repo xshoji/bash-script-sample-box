@@ -26,7 +26,7 @@
 
 Automatorの「クイックアクション」を新規作成し、「シェルスクリプトを実行」から以下のスクリプトを作成し「encode-video」などで保存する。
 
-![image](https://github.com/user-attachments/assets/c3ba2c9d-ad00-4ea1-9a1a-939d4eae1c2f)
+<img src="https://github.com/user-attachments/assets/c3ba2c9d-ad00-4ea1-9a1a-939d4eae1c2f" width="360">
 
 ```
 # シェル: /bin/bash
