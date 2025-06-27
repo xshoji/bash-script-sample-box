@@ -26,9 +26,14 @@
 
 Automatorの「クイックアクション」を新規作成し、「シェルスクリプトを実行」から以下のスクリプトを作成し「encode-video」などで保存する。
 
+![image](https://github.com/user-attachments/assets/c3ba2c9d-ad00-4ea1-9a1a-939d4eae1c2f)
+
 ```
 # シェル: /bin/bash
-/usr/local/bin/HandBrakeCLI --preset "Very Fast 1080p30" -i "${1}" -o "${1/.mov/_out.mp4}"
+for f in "$@"
+do
+  /usr/local/bin/HandBrakeCLI --preset "Very Fast 1080p30" -i "${f}" -o "${f/.mov/_out.mp4}"
+done
 ```
 
 保存先は `/Users/user/Library/Services/encode-video.workflow` になる。 
