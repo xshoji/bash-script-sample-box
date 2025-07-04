@@ -39,6 +39,27 @@ done
 保存先は `/Users/user/Library/Services/encode-video.workflow` になる。 
 
 
+
+
+# 画像を2つに分割するクイックアクション
+
+**split-image**
+
+```
+
+for f in "$@"
+do
+  HEIGHT=$(sips -g pixelHeight "${f}" |grep pixelHeight |sed "s/.*: //g")
+  WIDTH=$( sips -g pixelWidth  "${f}" |grep pixelWidth  |sed "s/.*: //g")
+  HEIGHT_HALF=$(awk "BEGIN {printf \"%d\n\", ${HEIGHT} / 2}")
+  # --cropToHeightWidth pixelsH pixelsW
+  # --cropOffset offsetY offsetH
+  sips --cropToHeightWidth ${HEIGHT_HALF} ${WIDTH} --cropOffset 0 1 "${f}" --out "${f%.*}_1.${f##*.}"  
+  sips --cropToHeightWidth ${HEIGHT_HALF} ${WIDTH} --cropOffset ${HEIGHT_HALF} 1 "${f}" --out "${f%.*}_2.${f##*.}"  
+done
+```
+
+
 # スペース区切り（カンマ区切りとかもOK）を改行区切りに変換してxargsで並列処理する
 
 ```
@@ -50,81 +71,6 @@ echo "aaa bbb ccc ddd eeee fff gggg hhh iii jjj" |awk -v RS=" " '{print}' |sed '
 
 > テキストの最後の行だけ消したい時、どうやればいい？ - Qiita  
 > https://qiita.com/richmikan@github/items/4317efffdfd57dc24cf7
-
-# ランダムな文字列を１０個一気に生成する
-
-```
-// for版
-for ((i=0; i < 10; i++)); do openssl rand -base64 12 | fold -w 10 | head -1; done
-// seq版
-seq 1 10 |xargs -I{} bash -c "openssl rand -base64 12 | fold -w 13 | head -1"
-```
-
-ちなみに出力するランダム文字列の種別も選べる
-
-```
-// base64
-$ openssl rand -base64 15 | fold -w 15 |head -n 1
-yWeZes91kn/pd40
-
-// hex
-$ openssl rand -hex 15 | fold -w 15 |head -n 1
-80fb8b851e8461e
-```
-
-> コマンドラインでランダムな10文字を得る方法
-> https://qiita.com/tt2004d/items/0212611b6eb321ee860c
-
-
-
-
-
-# 連続する数値を一気に出力する
-
-## seqとxargsを組み合わせる
-
-```
-seq -f "%01g" 0 23 |xargs -ISTART bash -c "expr START + 1 |xargs -IEND printf \"%02d %02d\n\" START END"
-00 01
-01 02
-02 03
-03 04
-...
-```
-
-これかなり遅い。`expr START + 1`これがべらぼうに遅い
-
-## awkで生成しちゃう（forでがりがり）
-```
-awk 'BEGIN{for(i=0; i<23; i++){ printf("%-2.2d\t%-2.2d\n",i,i+1); } }'
-00	01
-01	02
-02	03
-03	04
-04	05
-05	06
-```
-
-こっちのほうがかなり高速
-
-数値の全組み合わせ出力とかもこれでやったほうが良い
-
-```
-awk 'BEGIN{for(i=0; i<3; i++){ for(j=0; j<3; j++){ printf("%-2.2d\t%-2.2d\n",i,j); } } }'
-00	00
-00	01
-00	02
-01	00
-01	01
-01	02
-02	00
-02	01
-02	02
-```
-
-> AWKのこういう時はどう書く? - Qiita
-> https://qiita.com/hirohiro77/items/713d5bcf60fef7e88dfa
-
 
 
 
