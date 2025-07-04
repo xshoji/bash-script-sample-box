@@ -46,7 +46,6 @@ done
 **split-image**
 
 ```
-
 for f in "$@"
 do
   HEIGHT=$(sips -g pixelHeight "${f}" |grep pixelHeight |sed "s/.*: //g")
