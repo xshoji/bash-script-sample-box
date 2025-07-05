@@ -59,6 +59,53 @@ done
 ```
 
 
+
+
+# 画像のファイルサイズ上限を指定してjpegに圧縮するクイックアクション（二分期探索で圧縮のクオリティを最適化していく）
+
+```bash
+readonly target_size=2000000  # 2MB
+low=1
+high=100
+
+get_file_size() {
+  local input="${1}"
+  local quality="${2}"
+  local uuid=$(perl -e 'print map { (0..9)[rand 10] } 1..32; print "\n";')
+  (
+    local temp_file="/tmp/${uuid}_binary_search_${quality}.jpeg"
+    trap 'rm -f "$temp_file"' EXIT SIGINT SIGTERM SIGQUIT SIGKILL
+    sips -s format jpeg -s formatOptions $quality "$input" --out "$temp_file" >/dev/null 2>&1
+    actual_size=$(stat -f%z "$temp_file")
+    echo "${actual_size}"
+  )
+}
+
+for f in "$@"
+do  
+  finally_size="OVER"
+  while (( $high - $low > 2 )); do
+    quality=$(awk "BEGIN {printf \"%d\n\", ($low + $high) / 2 }")
+    actual_size=$(get_file_size "${f}" "${quality}")
+    echo "quality=$quality, size=${actual_size} bytes"
+  
+    if (( actual_size >= target_size )); then
+      high="${quality}"
+    else
+      low="${quality}"
+      finally_size="${actual_size}"
+    fi
+  done
+  quality="${low}"
+  echo "quality: ${quality}"
+
+  rm -f "${f}_q${quality}_s${finally_size}.jpeg"
+  sips -s format jpeg -s formatOptions $quality "$f" --out "${f}_q${quality}_s${finally_size}.jpeg"
+done
+
+```
+
+
 # スペース区切り（カンマ区切りとかもOK）を改行区切りに変換してxargsで並列処理する
 
 ```
