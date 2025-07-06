@@ -24,7 +24,7 @@
 
 **エンコード処理を右クリックメニューに追加する**
 
-Automatorの「クイックアクション」を新規作成し、「シェルスクリプトを実行」から以下のスクリプトを作成し「encode-video」などで保存する。
+Automatorの「クイックアクション」を新規作成し、「シェルスクリプトを実行」から以下のスクリプトを作成し「Encode Video」などで保存する。
 
 <img src="https://github.com/user-attachments/assets/c3ba2c9d-ad00-4ea1-9a1a-939d4eae1c2f" width="360">
 
@@ -43,7 +43,7 @@ done
 
 # 画像を2つに分割するクイックアクション
 
-**split-image**
+**Split Image**
 
 ```
 for f in "$@"
@@ -63,17 +63,23 @@ done
 
 # 画像のファイルサイズ上限を指定してjpegに圧縮するクイックアクション（二分期探索で圧縮のクオリティを最適化していく）
 
+**Compress JPEG to 2MB**
+
 ```bash
-readonly target_size=2000000  # 2MB
-low=1
-high=100
+# 設定
+readonly TARGET_SIZE_MB=2.0
+readonly TARGET_SIZE=$(awk "BEGIN {printf \"%d\n\", (${TARGET_SIZE_MB} * 1000000)}")
+readonly MIN_QUALITY=1
+readonly MAX_QUALITY=100
+readonly QUALITY_THRESHOLD=2  # バイナリサーチの終了条件
 
 get_file_size() {
   local input="${1}"
   local quality="${2}"
   local uuid=$(perl -e 'print map { (0..9)[rand 10] } 1..32; print "\n";')
   (
-    local temp_file="/tmp/${uuid}_binary_search_${quality}.jpeg"
+
+    local temp_file="/tmp/$(basename ${input})_${uuid}_quick_action_${quality}.jpeg"
     trap 'rm -f "$temp_file"' EXIT SIGINT SIGTERM SIGQUIT SIGKILL
     sips -s format jpeg -s formatOptions $quality "$input" --out "$temp_file" >/dev/null 2>&1
     actual_size=$(stat -f%z "$temp_file")
@@ -82,27 +88,36 @@ get_file_size() {
 }
 
 for f in "$@"
-do  
+do
+  input="${f}"
+  statusFile="${input}_STARTED"
+  touch "${statusFile}"
+  trap 'rm -f "${statusFile}"' EXIT SIGINT SIGTERM SIGQUIT SIGKILL
+  low=$MIN_QUALITY
+  high=$MAX_QUALITY
   finally_size="OVER"
-  while (( $high - $low > 2 )); do
+  while (( $high - $low > $QUALITY_THRESHOLD )); do
     quality=$(awk "BEGIN {printf \"%d\n\", ($low + $high) / 2 }")
-    actual_size=$(get_file_size "${f}" "${quality}")
+    actual_size=$(get_file_size "${input}" "${quality}")
     echo "quality=$quality, size=${actual_size} bytes"
   
-    if (( actual_size >= target_size )); then
+    if (( actual_size >= TARGET_SIZE )); then
       high="${quality}"
     else
       low="${quality}"
       finally_size="${actual_size}"
     fi
+    newStatusFile="${input}_${low}_${high}"
+    mv "${statusFile}" "${newStatusFile}"
+    statusFile="${newStatusFile}"
   done
   quality="${low}"
   echo "quality: ${quality}"
 
-  rm -f "${f}_q${quality}_s${finally_size}.jpeg"
-  sips -s format jpeg -s formatOptions $quality "$f" --out "${f}_q${quality}_s${finally_size}.jpeg"
+  output="${input}_q${quality}_s${finally_size}.jpeg"
+  rm -f "${output}"
+  sips -s format jpeg -s formatOptions $quality "${input}" --out "${output}"
 done
-
 ```
 
 
