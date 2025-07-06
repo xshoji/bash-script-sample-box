@@ -38,7 +38,7 @@ do
 done
 ```
 
-保存先は `/Users/user/Library/Services/encode-video.workflow` になる。 
+保存先は `/Users/user/Library/Services/Encode Video.workflow` になる。 
 
 
 
