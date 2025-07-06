@@ -28,8 +28,10 @@ Automatorの「クイックアクション」を新規作成し、「シェル�
 
 <img src="https://github.com/user-attachments/assets/c3ba2c9d-ad00-4ea1-9a1a-939d4eae1c2f" width="360">
 
-```
-# シェル: /bin/bash
+* シェル: /bin/bash
+* 入力の引き渡し方法: 引数として
+
+```bash
 for f in "$@"
 do
   /usr/local/bin/HandBrakeCLI --preset "Very Fast 1080p30" -i "${f}" -o "${f/.mov/_out.mp4}"
@@ -45,7 +47,7 @@ done
 
 **Split Image**
 
-```
+```bash
 for f in "$@"
 do
   HEIGHT=$(sips -g pixelHeight "${f}" |grep pixelHeight |sed "s/.*: //g")
