@@ -75,7 +75,7 @@ readonly MIN_QUALITY=1
 readonly MAX_QUALITY=100
 readonly QUALITY_THRESHOLD=2  # バイナリサーチの終了条件
 
-get_file_size() {
+getFileSize() {
   local input="${1}"
   local quality="${2}"
   local uuid=$(perl -e 'print map { (0..9)[rand 10] } 1..32; print "\n";')
@@ -83,8 +83,7 @@ get_file_size() {
     local temp_file="/tmp/$(basename ${input})_${uuid}_quick_action_${quality}.jpeg"
     trap 'rm -f "$temp_file"' EXIT SIGINT SIGTERM SIGQUIT SIGKILL
     sips -s format jpeg -s formatOptions $quality "$input" --out "$temp_file" >/dev/null 2>&1
-    actual_size=$(stat -f%z "$temp_file")
-    echo "${actual_size}"
+    stat -f%z "$temp_file"
   )
 }
 
@@ -96,26 +95,24 @@ do
   trap 'rm -f "${statusFile}"' EXIT SIGINT SIGTERM SIGQUIT SIGKILL
   low=$MIN_QUALITY
   high=$MAX_QUALITY
-  finally_size="OVER"
+  finallySize="OVER"
   while (( $high - $low > $QUALITY_THRESHOLD )); do
     quality=$(awk "BEGIN {printf \"%d\n\", ($low + $high) / 2 }")
-    actual_size=$(get_file_size "${input}" "${quality}")
-    echo "quality=$quality, size=${actual_size} bytes"
+    actualSize=$(getFileSize "${input}" "${quality}")
   
-    if (( actual_size >= TARGET_SIZE )); then
+    if (( actualSize >= TARGET_SIZE )); then
       high="${quality}"
     else
       low="${quality}"
-      finally_size="${actual_size}"
+      finallySize="${actualSize}"
     fi
     newStatusFile="${input}_${low}_${high}"
     mv "${statusFile}" "${newStatusFile}"
     statusFile="${newStatusFile}"
   done
   quality="${low}"
-  echo "quality: ${quality}"
 
-  output="${input}_q${quality}_s${finally_size}.jpeg"
+  output="${input}_q${quality}_s${finallySize}.jpeg"
   rm -f "${output}"
   sips -s format jpeg -s formatOptions $quality "${input}" --out "${output}"
 done
