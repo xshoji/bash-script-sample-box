@@ -80,7 +80,6 @@ get_file_size() {
   local quality="${2}"
   local uuid=$(perl -e 'print map { (0..9)[rand 10] } 1..32; print "\n";')
   (
-
     local temp_file="/tmp/$(basename ${input})_${uuid}_quick_action_${quality}.jpeg"
     trap 'rm -f "$temp_file"' EXIT SIGINT SIGTERM SIGQUIT SIGKILL
     sips -s format jpeg -s formatOptions $quality "$input" --out "$temp_file" >/dev/null 2>&1
