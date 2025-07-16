@@ -46,7 +46,7 @@ done
 
 **Base64 Encode Image**
 
-```base
+```bash
 for f in "$@"
 do
   cat "$f" |base64 |pbcopy
