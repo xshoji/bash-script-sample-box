@@ -49,8 +49,8 @@ done
 ```
 for f in "$@"
 do
-	cat "$f" |base64 |pbcopy
-    osascript -e 'display notification "Copied the base64-encoded image." with title "Base64 Encode Image"'
+  cat "$f" |base64 |pbcopy
+  osascript -e 'display notification "Copied the base64-encoded image." with title "Base64 Encode Image"'
 done
 ```
 
