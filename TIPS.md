@@ -42,6 +42,21 @@ done
 
 
 
+# 画像をBase64エンコードしてクリップボードにコピーするクイックアクション
+
+**Base64 Encode Image**
+
+```
+for f in "$@"
+do
+	cat "$f" |base64 |pbcopy
+    osascript -e 'display notification "Copied the base64-encoded image." with title "Base64 Encode Image"'
+done
+```
+
+
+
+
 
 # 画像を2つに分割するクイックアクション
 
@@ -59,6 +74,7 @@ do
   sips --cropToHeightWidth ${HEIGHT_HALF} ${WIDTH} --cropOffset ${HEIGHT_HALF} 1 "${f}" --out "${f%.*}_2.${f##*.}"  
 done
 ```
+
 
 
 
