@@ -1,3 +1,13 @@
+# gitでコミット履歴の日時を書き換える
+
+```
+git log |head -n 10 |pbcopy # 現在のコミット履歴の日時をコピーしておく
+git rebase -i HEAD~5
+... 変更したいコミットの pick を edit へ
+git commit --amend --no-edit --date="2025-10-17T18:35:00"; git rebase --continue
+
+```
+
 # demo用動画を撮る
 
 > 「キャプチャにGifを貼るのはさすがにジジイっすよ」  
