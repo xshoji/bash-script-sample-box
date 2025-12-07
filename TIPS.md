@@ -12,11 +12,15 @@ git commit --amend --no-edit --date="2025-10-17T18:35:00"; git rebase --continue
 
 # treeコマンドがない環境でtreeっぽく表示する
 
-```
-# リッチな表示
-basename "$PWD"; find . -print 2>/dev/null | awk 'BEGIN { FS = "/" } NR > 1 { depth = NF - 2; for (i = 0; i < depth; i++) printf "│   "; print "├── " $NF }'
+リッチな表示
 
-# 簡易的な表示（ただし、ファイル先頭にアンスコがあるとみにくい）
+```
+basename "$PWD"; find . -print 2>/dev/null | awk 'BEGIN { FS = "/" } NR > 1 { depth = NF - 2; for (i = 0; i < depth; i++) printf "│   "; print "├── " $NF }'
+```
+
+簡易的な表示（ただし、ファイル先頭にアンスコがあるとみにくい）
+
+```
 find .  -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
