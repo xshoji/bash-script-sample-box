@@ -10,6 +10,12 @@ git rebase -i HEAD~5  # ... 変更したいコミットの pick を edit へ
 git commit --amend --no-edit --date="2025-10-17T18:35:00"; git rebase --continue 
 ```
 
+# treeコマンドがない環境でtreeっぽく表示する
+
+```
+find .  -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+```
+
 # demo用動画を撮る
 
 > 「キャプチャにGifを貼るのはさすがにジジイっすよ」  
