@@ -60,7 +60,8 @@ Automatorの「クイックアクション」を新規作成し、「シェル�
 ```bash
 for f in "$@"
 do
-  /usr/local/bin/HandBrakeCLI --preset "Very Fast 1080p30" -i "${f}" -o "${f/.mov/_out.mp4}"
+  #  ${f%.*}: 変数 f の値の末尾から「最短一致」で .* にマッチする部分を削除する
+  /usr/local/bin/HandBrakeCLI --preset "Very Fast 1080p30" -i "${f}" -o "${f%.*}_encoded.mp4"
 done
 ```
 
