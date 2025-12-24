@@ -1,16 +1,16 @@
-# gitでコミット履歴の日時を書き換える
+## gitでコミット履歴の日時を書き換える
 
 ```
-git log |head -n 10 |pbcopy # 現在のコミット履歴の日時をコピーしておく
+git log |head -n 10 |pbcopy ## 現在のコミット履歴の日時をコピーしておく
 ```
 ```
-git rebase -i HEAD~5  # ... 変更したいコミットの pick を edit へ 
+git rebase -i HEAD~5  ## ... 変更したいコミットの pick を edit へ 
 ```
 ```
 git commit --amend --no-edit --date="2025-10-17T18:35:00"; git rebase --continue 
 ```
 
-# treeコマンドがない環境でtreeっぽく表示する
+## treeコマンドがない環境でtreeっぽく表示する
 
 リッチな表示
 
@@ -26,7 +26,7 @@ find .  -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
 
 
-# スペース区切り（カンマ区切りとかもOK）を改行区切りに変換してxargsで並列処理する
+## スペース区切り（カンマ区切りとかもOK）を改行区切りに変換してxargsで並列処理する
 
 ```
 echo "aaa bbb ccc ddd eeee fff gggg hhh iii jjj" |awk -v RS=" " '{print}' |sed '$d' |xargs -P5 -IXXX echo XXX
@@ -41,7 +41,7 @@ echo "aaa bbb ccc ddd eeee fff gggg hhh iii jjj" |awk -v RS=" " '{print}' |sed '
 
 
 
-# sedで「特定の文字ではじまり特定の文字で終わる」（XXが現れるまで、XXが含まれない文字まで、XX以外の文字まで）の範囲を抽出する方法
+## sedで「特定の文字ではじまり特定の文字で終わる」（XXが現れるまで、XXが含まれない文字まで、XX以外の文字まで）の範囲を抽出する方法
 
 ... "artistId":462006, ... "artistName":"ボブ・ディラン", ... "artistViewUrl":"https://itunes.apple.com/jp/artist/...?uo=4" ...
 
@@ -62,7 +62,7 @@ $ cat itunes_result.txt |grep artistViewUrl |sed -E 's/^.\*("artistId":)([0-9]\*
 
 
 
-# 正規表現で抽出
+## 正規表現で抽出
 
 ```
 $ echo "2017-09-25 19:15:10.994 [aaa-1111] test aaabbbccc - ddd=[111 xxxx]" |sed -E 's/^.*( \[)([a-z0-9]{3}-[0-9]{4}).*$/\2/g'
@@ -80,7 +80,7 @@ aaa-1111
 
 
 
-# 最初に◯◯にマッチするまでの文字列を削る（Macのみ？）
+## 最初に◯◯にマッチするまでの文字列を削る（Macのみ？）
 
 ```
 $ echo "/aaa/bbb/ccc:{aaa:bbb,ccc:ddd}" |sed 's/.*ccc:{/DEL{/1'
@@ -94,7 +94,7 @@ $ echo "/aaa/bbb/ccc:{aaa:bbb,ccc:ddd}" |sed 's/.*ccc:{/{/1'
 
 
 
-# rsync周りのコマンド
+## rsync周りのコマンド
 
 ```
 // ローカルにあるファイルをサーバーへ送信してサーバーのソースの状態をローカルのディレクトリと同期させる。ただし、権限と同期先に無いファイルは連携しない
@@ -111,7 +111,7 @@ $ rsync -ahv --no-p --existing hostname:/remote/server/dir /local/mac/dir
 
 
 
-# ハードリンク先のファイルを見つける
+## ハードリンク先のファイルを見つける
 
 ```
 // inode番号を見つける
@@ -129,7 +129,7 @@ $ sudo find /path/to/dir -inum 3016206
 
 
 
-# 指定したディレクトリにjarを解凍する
+## 指定したディレクトリにjarを解凍する
 
 ```
 // spring-bootに解凍される。
@@ -140,7 +140,7 @@ echo "spring-boot" |xargs -IDIRNAME bash -c "rm -rf DIRNAME && mkdir -p DIRNAME 
 
 
 
-# ファイル内容をランダムソート
+## ファイル内容をランダムソート
 
 perlやけど・・・
 
@@ -155,7 +155,7 @@ perl -MList::Util=shuffle -e 'print shuffle(<>)' < data.txt
 
 
 
-# サーバーに対してローカルにあるshellを実行する方法
+## サーバーに対してローカルにあるshellを実行する方法
 
 ```
 // ローカルにて
@@ -168,7 +168,7 @@ ssh hostname 'bash -s' < localscript.sh
 
 
 
-# ncとかがない環境でhostとportを指定して疎通を確認する
+## ncとかがない環境でhostとportを指定して疎通を確認する
 
 ```
 $ timeout $TIMEOUT_SECONDS bash -c "</dev/tcp/${HOST}/${PORT}"; echo $?
@@ -181,7 +181,7 @@ $ timeout 2 bash -c "</dev/tcp/canyouseeme.org/80"; echo $?
 
 
 
-# 特定のディレクトリの特定のファイルのみを圧縮する
+## 特定のディレクトリの特定のファイルのみを圧縮する
 
 ```
 $ find /tmp/test
@@ -213,7 +213,7 @@ $ find /tmp/directory/
 /tmp/directory//test13.txt
 ```
 
-## 特定の拡張子のみ圧縮する
+#### 特定の拡張子のみ圧縮する
 
 ```
 find . -type f \( -name \*.jpg -or -name \*.png -or -name \*.tga \) |xargs -IXXX tar rvf /tmp/Assets.tar XXX ; gzip /tmp/Assets.tar
@@ -222,14 +222,14 @@ find . -type f \( -name \*.jpg -or -name \*.png -or -name \*.tga \) |xargs -IXXX
  - [更新日時でファイルを検索して圧縮する - Qiita](http://qiita.com/bezeklik/items/7e5a58f8d29d0c3a3876)
  - [Linuxコマンド集 - 【 find 】 ファイルやディレクトリを検索する：ITpro](http://itpro.nikkeibp.co.jp/article/COLUMN/20060227/230777/)
  - [findでファイル名のみ表示 - Qiita](http://qiita.com/skkzsh/items/40b661a043c9b60f8426)
- - [tarコマンドについて詳しくまとめました 【Linuxコマンド集】](https://eng-entrance.com/linux-command-tar#_-r_--append)
+ - [tarコマンドについて詳しくまとめました 【Linuxコマンド集】](https://eng-entrance.com/linux-command-tar##_-r_--append)
  - [shell script - Can I somehow update compressed archives? - Unix & Linux Stack Exchange](https://unix.stackexchange.com/questions/283139/can-i-somehow-update-compressed-archives)
 
 
 
 
 
-# ディレクトリの合計とかファイルの容量をソートする
+## ディレクトリの合計とかファイルの容量をソートする
 
 ```
 du -hs * | sort -h
@@ -242,7 +242,7 @@ du -hs * | sort -h
 
 
 
-# grep時に各行をセパレータで区切る
+## grep時に各行をセパレータで区切る
 
 linuxでのみ。macだとこのオプション使えない
 
@@ -262,7 +262,7 @@ grep -C 0 --group-separator=$'\n===========keyword file*.txt |head -n 10
 
 
 
-# lsでファイルが多すぎて返ってこないとき
+## lsでファイルが多すぎて返ってこないとき
 
 ```
 $ ls -U |head -n 10
@@ -275,7 +275,7 @@ $ ls -U |head -n 10
 
 
 
-### ファイルを指定ファイル数で分割する
+###### ファイルを指定ファイル数で分割する
 
  - 10: 分割数
 
@@ -283,7 +283,7 @@ $ ls -U |head -n 10
 split -l $(expr $(cat input.tsv |wc -l)  / 10 + 1) input.tsv splitted_file_
 ```
 
-# joinを使ってテキストをつなげる
+## joinを使ってテキストをつなげる
 
 以下のような前提で
 
@@ -392,14 +392,14 @@ ag271938 2000032210 20140226172717 3 ag271938:2000032210
 を指定すれば、1ファイル目の結合した結果なかった行を出力できる
 
 
-## -oオプションで指定した行が変な感じになる
+#### -oオプションで指定した行が変な感じになる
 
 文字コード、改行コードを疑う。
 
 UTF-8, LFにするとうまくいった。
 
 
-### 参考ページ
+###### 参考ページ
 
  - [中間ファイルを作らずにdiffを実行](http://shibainu55.blog137.fc2.com/blog-entry-22.html)
  - [joinコマンド ～複数フィールドで結合する。](http://akiniwa.hatenablog.jp/entry/2013/11/08/145238)
@@ -411,9 +411,9 @@ UTF-8, LFにするとうまくいった。
 
 
 
-# 共通項を出す
+## 共通項を出す
 
-#### パターン１：各ファイルが１列で重複のないユニークなファイルの場合
+######## パターン１：各ファイルが１列で重複のないユニークなファイルの場合
 
 ```
 sort aaa.tsv bbb.tsv | uniq -d
@@ -423,7 +423,7 @@ sort aaa.tsv bbb.tsv | uniq -d
 
 
 
-# 改行を除外する
+## 改行を除外する
 
 結果、こう
 
@@ -438,7 +438,7 @@ cat test.txt |sed -e ':a' -e 'N' -e '$!ba' -e 's/\n//g'
 
 
 
-# １行に複数回出てくる文言を改行表示する
+## １行に複数回出てくる文言を改行表示する
 
 ```
 $ echo "aaa,bbb=BBB,ccc,bbb=BBB,ddd,eee" |sed 's/bbb=/\nbbb=/g' |sed 's/,.*//g' |less -S
@@ -448,7 +448,7 @@ $ echo "aaa,bbb=BBB,ccc,bbb=BBB,ddd,eee" |sed 's/bbb=/\nbbb=/g' |sed 's/,.*//g' 
 
 
 
-# grep末尾が5桁の数値である行を抽出する
+## grep末尾が5桁の数値である行を抽出する
 
 ```
 // 普通はこれでいける
@@ -467,7 +467,7 @@ cat test.log |grep -E "[0-9]{6}^M$"
 
 
 
-# Gitの管理対象外にする
+## Gitの管理対象外にする
 
 ```
 git rm --cache /path/to/file
@@ -477,7 +477,7 @@ git rm --cache /path/to/file
 
 
 
-# 特定の文字列を含むファイルをファイル群全体から検索する
+## 特定の文字列を含むファイルをファイル群全体から検索する
 
 > How do I find all files containing specific text on Linux? - Stack Overflow
 > https://stackoverflow.com/questions/16956810/how-do-i-find-all-files-containing-specific-text-on-linux
@@ -486,7 +486,7 @@ git rm --cache /path/to/file
 
 
 
-# xargsで変数展開されなくなった時の対応
+## xargsで変数展開されなくなった時の対応
 
 大前提として、xargsの-Iでの変数展開は、引数のコマンドの文字列長が255バイトを超えると展開されなくなる。なので、長いコマンドでは変数展開されない。
 
@@ -497,7 +497,7 @@ git rm --cache /path/to/file
 
 
 
-# ディレクトリ配下のファイルをすべてフルパスでlsする
+## ディレクトリ配下のファイルをすべてフルパスでlsする
 
 ```
 $  ls -altR -d $(find `pwd`)
@@ -508,7 +508,7 @@ $  ls -altR -d $(find `pwd`)
 
 
 
-# historyを加工して最近sshしたサーバー一覧を出す
+## historyを加工して最近sshしたサーバー一覧を出す
 
 ```
 history |grep ssh |tr -s ' ' |cut -d ' ' -f 6 |sort |uniq
@@ -518,7 +518,7 @@ history |grep ssh |tr -s ' ' |cut -d ' ' -f 6 |sort |uniq
 
 
 
-# gitでコミットを取り消す
+## gitでコミットを取り消す
 
 ```
 git reset --soft HEAD^
@@ -531,7 +531,7 @@ git reset --soft HEAD^
 
 
 
-# N行ごとに置換する
+## N行ごとに置換する
 
 ```
 cat aiueo.txt | awk '{if(NR%10)ORS=",";else ORS="\n";print}' |sed -e "s/,/\x27,\x27/g" -e "s/^/\"\x27/" -e "s/$/\x27\"/" |xargs -I"XXX" sed "s/ZZZZ/XXX/" sqltemplate.sql
@@ -547,7 +547,7 @@ cat test.txt |xargs -L10 echo |sed "s/ /,/g"
 
 
 
-# sort uniqの結果の１列目と２列目を入れ替えてかつタブ区切りで出力する
+## sort uniqの結果の１列目と２列目を入れ替えてかつタブ区切りで出力する
 
 ```
 $ echo "2018
@@ -568,7 +568,7 @@ macやと"\t"でもいけた
 
 
 
-# sedで指定行だけ消す（かつ上書き）
+## sedで指定行だけ消す（かつ上書き）
 
 ```
 sed -i -e "2d" aiueo.txt
@@ -580,7 +580,7 @@ sed -i -e "2d" aiueo.txt
 
 
 
-# ファイル名の最終更新日付をつけて圧縮する
+## ファイル名の最終更新日付をつけて圧縮する
 
 ```
 ls  xxx*.log |xargs -I{} bash -c "mv {} {}-\$(date +%Y%m%d-%H:%M:%S -r {}).log; gzip {}*"
@@ -595,7 +595,7 @@ ls  xxx*.log |xargs -I{} bash -c "mv {} {}-\$(date +%Y%m%d-%H:%M:%S -r {}).log; 
 
 
 
-# Diffを見やすくする
+## Diffを見やすくする
 
 ```
 diff 1016.tsv 1017.tsv -y -W 200 |less -S
@@ -612,13 +612,13 @@ diff 1016.tsv 1017.tsv -y -W 200 |less -S
 > sedコマンドで文字列を改行に置換する、しかもスマートに置換する。
 > https://qiita.com/richmikan@github/items/3c74212b0d8dec9bd00f
 
-# 複数のスペースを１つにするする
+## 複数のスペースを１つにするする
 
 ```
 echo "a   b  c d" |sed 's/ \{1,\}/ /g'
 ```
 
-# 連続する日付をRange指定で生成する（mac限定）
+## 連続する日付をRange指定で生成する（mac限定）
 
 ```
 d="20150120"; while [ "$d" != "20150220" ]; do echo $d; d=$(date -j -f %Y%m%d -v+1d ${d} +%Y%m%d); done
@@ -627,7 +627,7 @@ d="20150120"; while [ "$d" != "20150220" ]; do echo $d; d=$(date -j -f %Y%m%d -v
 > Bash： Looping through dates - Stack Overflow
 > https://stackoverflow.com/questions/28226229/bash-looping-through-dates
 
-# テキスト同士をcross joinする
+## テキスト同士をcross joinする
 
 ```
 // list_a, list_bをcorss joinする
@@ -639,7 +639,7 @@ cat list_a.tsv |xargs -I{} bash -c "awk '{print \"{}        \"\$0}' list_b.tsv"
 > 【bash】xargsを使って2つのリストをCROSS JOINする - くんすとの備忘録
 > https://kunst1080.hatenablog.com/entry/2013/06/01/163439
 
-# お手軽に時間計測する
+## お手軽に時間計測する
 
 ```
 SECONDS=0
@@ -652,18 +652,18 @@ echo "Sleep ${SECONDS} [sec]"
 
 しらなかった・・・便利
 
-# 安全な一時ファイルを作る
+## 安全な一時ファイルを作る
 
 ```
 BASH_SOURCE_PATH=${BASH_SOURCE:-$0}
-SCRIPT_FILE_NAME=${BASH_SOURCE_PATH##*/}
+SCRIPT_FILE_NAME=${BASH_SOURCE_PATH####*/}
 TMP_FILE_PATH=`mktemp /tmp/temp.${SCRIPT_FILE_NAME}.XXXXXXXXXXXX`
 trap "{ rm -f ${TMP_FILE_PATH}; }" EXIT SIGINT
 ```
 
 これでスクリプト終了時に必ず削除されるファイルを作れる。
 
-# 指定文字を指定回数繰り返す
+## 指定文字を指定回数繰り返す
 
 ```
 $ printf '=%.0s' {1..10}; echo ""
@@ -674,12 +674,12 @@ $ printf '=%.0s' {1..10}; echo ""
 > https://stackoverflow.com/questions/5349718/how-can-i-repeat-a-character-in-bash
 
 
-# if文では`[ ... ]`よりも`[[ ... ]]`を使ったほうが便利
+## if文では`[ ... ]`よりも`[[ ... ]]`を使ったほうが便利
 
 > BashFAQ/031 - Greg's Wiki  
 > http://mywiki.wooledge.org/BashFAQ/031
 
-# ファイルを指定ファイル数で分割する
+## ファイルを指定ファイル数で分割する
 
  - input.tsv: 元ファイルパス
  - 10: 分割数
@@ -688,15 +688,15 @@ $ printf '=%.0s' {1..10}; echo ""
 echo "input.tsv,10" |awk -F',' '{ system("split -l $(expr $(cat "$1" |wc -l)  / "$2" + 1) "$1" "$1"_part_") }'
 ```
 
-# 文字に色を付ける（sedで特定の文字だけに）
+## 文字に色を付ける（sedで特定の文字だけに）
 
 > shell script - Using sed to color the output from a command on solaris - Unix & Linux Stack Exchange  
-> https://unix.stackexchange.com/questions/45924/using-sed-to-color-the-output-from-a-command-on-solaris?answertab=active#tab-top
+> https://unix.stackexchange.com/questions/45924/using-sed-to-color-the-output-from-a-command-on-solaris?answertab=active##tab-top
 
 のテクニックが使えそう
 
 ```
-#!/bin/bash
+##!/bin/bash
 
 function createSedPipeToColorize() {
   local ESC=$(printf '\033')
@@ -725,11 +725,11 @@ eval ${COMMAND}
 単体の文章に色付けする場合は
 
 > bash - How to change the output color of echo in Linux - Stack Overflow  
-> https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux/5947802#5947802
+> https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux/5947802##5947802
 
 の方法が良さそう。
 
-# 複数行のファイルを指定文字列でjoinして1行にする
+## 複数行のファイルを指定文字列でjoinして1行にする
 
 ```
 $ cat extlist.txt |awk '{ORS=" ";print $1}'
@@ -737,7 +737,7 @@ $ cat extlist.txt |awk '{ORS=" ";print $1}'
 
 でいける。ORSで区切り文字指定。
 
-# \nを改行に置換する
+## \nを改行に置換する
 
 ```
 [11-17 01:06:01] macbookpro ~$ echo "aaa\nbbb\nccc" | sed 's/\\n/\'$'\n/g'
@@ -749,7 +749,7 @@ ccc
 > sed による置換で改行\nを出力する - Qiita  
 > https://qiita.com/kkdd/items/725e53572bc69e4b51b7
 
-# macのバッテリーのキャパを調べる
+## macのバッテリーのキャパを調べる
 
 ```
 $ ioreg -c AppleSmartBattery | grep -i Capacity |awk '{printf "%s%s",sep,$0; sep=","}' |perl -pe 's/^.*(\"AppleRawMaxCapacity\" = \d+).*(\"DesignCapacity\" = \d+).*$/\1\n\2\n/g'
