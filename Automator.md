@@ -41,12 +41,29 @@ done
 
 保存先は `/Users/user/Library/Services/Encode Video.workflow` になる。 
 
-## av1でエンコードする場合のシェル
+## h.264で圧縮率を上げる
+
+`encode-video-h264-720p30`
+
+```bash
+
+for f in "$@"
+do
+  # --preset="Fast 720p30": ベースとなるプリセットを指定
+  # --encoder-preset 8: 圧縮速度/効率 1〜13まで指定可能。数値が大きいほど速くなりますが、8〜10がサイズ節約には最適です。
+  # -q 30: 画質 (RF値) 数値を上げるとサイズが減ります。AV1なら28〜32程度が「最小サイズ」の限界ラインです。
+  /usr/local/bin/HandBrakeCLI --preset="Fast 720p30" --encoder-preset 2 -q 30 -i "${f}" -o "${f%.*}_h264_720p30.mp4"
+done
+```
+
+
+## av1でエンコードする場合
 
 av1とは: ライセンスの不透明さに嫌気がさしたテック企業たちが集まり、**「ロイヤリティフリー（無料）で、誰でも自由に使える高性能なコーデックを作ろう」**として誕生したのが 「AV1」 です。（AIより）
 
+`encode-video-av1-720p30`
+
 ```bash
-encode-video-av1-720p30
 for f in "$@"
 do
   # --preset="Fast 720p30": ベースとなるプリセットを指定
