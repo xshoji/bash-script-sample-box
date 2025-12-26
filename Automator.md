@@ -41,7 +41,20 @@ done
 
 保存先は `/Users/user/Library/Services/Encode Video.workflow` になる。 
 
+## av1でエンコードする場合のシェル
 
+av1とは: ライセンスの不透明さに嫌気がさしたテック企業たちが集まり、**「ロイヤリティフリー（無料）で、誰でも自由に使える高性能なコーデックを作ろう」**として誕生したのが 「AV1」 です。（AIより）
+
+```bash
+for f in "$@"
+do
+  # --preset="VP9 MKV 720p30": ベースとなるプリセットを指定
+  # -e svt_av1: コーデックを上書き指定
+  # --encoder-preset 8: 圧縮速度/効率 1〜13まで指定可能。数値が大きいほど速くなりますが、8〜10がサイズ節約には最適です。
+  # -q 30: 画質 (RF値) 数値を上げるとサイズが減ります。AV1なら28〜32程度が「最小サイズ」の限界ラインです。
+  /usr/local/bin/HandBrakeCLI --preset="VP9 MKV 720p30" -e svt_av1 --encoder-preset 4 -q 28 -i "${f}" -o "${f%.*}_av1_720p30.mp4"
+done
+```
 
 # 画像をBase64エンコードしてクリップボードにコピーするクイックアクション
 
