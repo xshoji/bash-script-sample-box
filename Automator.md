@@ -35,13 +35,13 @@ Automatorの「クイックアクション」を新規作成し、「シェル�
 for f in "$@"
 do
   #  ${f%.*}: 変数 f の値の末尾から「最短一致」で .* にマッチする部分を削除する
-  /usr/local/bin/HandBrakeCLI --preset "Very Fast 1080p30" -i "${f}" -o "${f%.*}_encoded.mp4"
+  /usr/local/bin/HandBrakeCLI --preset "Fast 1080p30" -i "${f}" -o "${f%.*}_h264_1080p30.mp4"
 done
 ```
 
 保存先は `/Users/user/Library/Services/Encode Video.workflow` になる。 
 
-## h.264で圧縮率を上げる
+## h.264で圧縮率を上げる（画質は落ちる）
 
 `encode-video-h264-720p30`
 
