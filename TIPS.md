@@ -18,6 +18,12 @@ git commit --amend --no-edit --date="2025-10-17T18:35:00"; git rebase --continue
 basename "$PWD"; find . -print 2>/dev/null | awk 'BEGIN { FS = "/" } NR > 1 { depth = NF - 2; for (i = 0; i < depth; i++) printf "│   "; print "├── " $NF }'
 ```
 
+リッチな表示（ディレクトリ除外＆階層指定版）
+
+```
+basename "$PWD"; find . -maxdepth 4 \( -name ".git" -o -name "node_modules" \) -prune -o -print 2>/dev/null | awk 'BEGIN { FS = "/" } NR > 1 { depth = NF - 2; indent = ""; for (i = 0; i < depth; i++) indent = indent "│   "; print indent "├── " $NF }' |less -S
+```
+
 簡易的な表示（ただし、ファイル先頭にアンスコがあるとみにくい）
 
 ```
