@@ -602,10 +602,9 @@ printColored yellow "test"
 #------------------------
 # Print battery capacity
 # MacBook Proのバッテリーの劣化を調べる方法【Big Sur】 | one euro https://oneuro.net/macbook-pro-battery-health
-$ ioreg -c AppleSmartBattery | grep -i Capacity |awk '{printf "%s%s",sep,$0; sep=","}' |perl -pe 's/^.*(\"AppleRawMaxCapacitpacity\" = \d+).*$/\1\n\2\n/g'
-"AppleRawMaxCapacity" = 4299
-"DesignCapacity" = 5088
-
+$ d=$(ioreg -c AppleSmartBattery | grep -i "  \"DesignCapacity" |sed "s/.*= //g");  m=$(ioreg -c AppleSmartBattery | grep -i "  \"AppleRawMaxCapacity" |sed "s/.*= //g"); echo "DesignCapacity:${d}, AppleRawMaxCapacity:${m}"; awk "BEGIN {printf \"%.3f\n\",  ${m} / ${d} * 100}"
+DesignCapacity:5088, AppleRawMaxCapacity:4142
+81.407
 
 
 
