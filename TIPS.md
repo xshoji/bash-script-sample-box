@@ -9,7 +9,7 @@ b="feature/a"; git worktree add -b "${b}" "../${PWD##*/}-${b////-}"; cd "../${PW
 remoteから作成する場合はこっち
 
 ```
-b="feature/a"; git worktree add -b "${b}" "../${PWD##*/}-${b////-}" "remotes/origin/${b////-}"; cd "../${PWD##*/}-${b////-}"
+b="feature/a"; git worktree add -b "${b}" "../${PWD##*/}-${b////-}" "remotes/origin/${b}"; cd "../${PWD##*/}-${b////-}"
 ```
 
 #### 作業が終わった後はworktreeのディレクトリとブランチを削除する
