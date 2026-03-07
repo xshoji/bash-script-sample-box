@@ -1,15 +1,16 @@
-## git worktree スニペット
+## git スニペット
 
-#### worktreeを作成すると同時にブランチも作る
+#### worktree的な感じでブランチ名付きのディレクトリにクローンする
 
 ```
-b="feature/a"; git worktree add -b "${b}" "../${PWD##*/}-${b////-}"; cd "../${PWD##*/}-${b////-}"
+b="feature/a"; git clone "$(git config --get remote.origin.url)" "../${PWD##*/}-${b////-}"; cd "../${PWD##*/}-${b////-}"; git checkout -b "${b}"
 ```
 
 remoteから作成する場合はこっち
 
 ```
-b="feature/a"; git worktree add -b "${b}" "../${PWD##*/}-${b////-}" "remotes/origin/${b}"; cd "../${PWD##*/}-${b////-}"
+b="images"; git clone -b "${b}" "$(git config --get remote.origin.url)" "../${PWD##*/}-${b////-}"; cd "../${PWD##*/}-${b////-}"
+
 ```
 
 #### 作業が終わった後はworktreeのディレクトリとブランチを削除する
