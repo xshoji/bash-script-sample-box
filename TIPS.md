@@ -2,16 +2,12 @@
 
 #### worktree的な感じでブランチ名付きのディレクトリにクローンする
 
-```
-b="feature/a"; git clone "$(git config --get remote.origin.url)" "../${PWD##*/}-${b////-}"; cd "../${PWD##*/}-${b////-}"; git checkout -b "${b}"
-```
-
-remoteから作成する場合はこっち
+リモートに存在するブランチならそれをCloneし、なければmainをクローン後に新規でブランチを切る
 
 ```
-b="images"; git clone -b "${b}" "$(git config --get remote.origin.url)" "../${PWD##*/}-${b////-}"; cd "../${PWD##*/}-${b////-}"
-
+b="feature/a"; url="$(git config --get remote.origin.url)"; dir="../${PWD##*/}-${b////-}"; if git ls-remote --exit-code --heads "${url}" "${b}" > /dev/null 2>&1; then git clone -b "${b}" "${url}" "${dir}"; else git clone "${url}" "${dir}" && cd "${dir}" && git checkout -b "${b}"; fi; cd "${dir}"
 ```
+
 
 #### 作業が終わった後はディレクトリを削除する
 
