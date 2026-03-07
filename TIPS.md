@@ -8,6 +8,8 @@
 b="feature/a"; url="$(git config --get remote.origin.url)"; dir="../${PWD##*/}-${b////-}"; if git ls-remote --exit-code --heads "${url}" "${b}" > /dev/null 2>&1; then git clone -b "${b}" "${url}" "${dir}"; else git clone "${url}" "${dir}" && cd "${dir}" && git checkout -b "${b}"; fi; cd "${dir}"
 ```
 
+`--filter=blob:none --depth=1` を入れるとcloneがさらに高速に。でも運用する際に混乱するかもしれないので様子見して導入
+
 
 #### 作業が終わった後はディレクトリを削除する
 
