@@ -13,10 +13,10 @@ b="images"; git clone -b "${b}" "$(git config --get remote.origin.url)" "../${PW
 
 ```
 
-#### 作業が終わった後はworktreeのディレクトリとブランチを削除する
+#### 作業が終わった後はディレクトリを削除する
 
 ```
-b="feature/a"; git worktree remove "../${PWD##*/}-${b////-}"; git branch -D "${b}"
+rm -rf xxxx
 ```
 
 
