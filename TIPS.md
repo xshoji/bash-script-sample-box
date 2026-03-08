@@ -11,10 +11,19 @@ b="feature/a"; url="$(git config --get remote.origin.url)"; dir="../${PWD##*/}-$
 `--filter=blob:none --depth=1` を入れるとcloneがさらに高速に。でも運用する際に混乱するかもしれないので様子見して導入
 
 
-#### 作業が終わった後はディレクトリを削除する
+
+### worktreeを切ってそのディレクトリに移動する
+
+リモートに存在するブランチならそれをCloneし、なければmainからworktree作成と同時に新規でブランチを切る
 
 ```
-rm -rf xxxx
+b="feature/a"; dir="../${PWD##*/}-${b////-}"; if git ls-remote --exit-code --heads origin "${b}" > /dev/null 2>&1; then git fetch origin "${b}" && git worktree add -b "${b}" "${dir}" "remotes/origin/${b}"; else git worktree add -b "${b}" "${dir}"; fi; cd "${dir}"
+```
+
+worktreeの作業が終わったらworktreeを決してブランチも削除する
+
+```
+b="feature/a"; git worktree remove "../${PWD##*/}-${b////-}"; git branch -D "${b}"
 ```
 
 
