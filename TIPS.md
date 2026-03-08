@@ -63,6 +63,8 @@ find .  -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
 ## imagemagickでフリンジを除去する
 
+複数回重ねがけするとより境界がぼやける
+
 ```
 magick input.png \( +clone -alpha extract -blur 0x1 -level 50x100% \) -alpha off -compose copy_opacity -composite output.png
 ```
