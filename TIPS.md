@@ -61,6 +61,12 @@ find .  -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
 
 
+## imagemagickでフリンジを除去する
+
+```
+magick input.png \( +clone -alpha extract -blur 0x1 -level 50x100% \) -alpha off -compose copy_opacity -composite output.png
+```
+
 ## スペース区切り（カンマ区切りとかもOK）を改行区切りに変換してxargsで並列処理する
 
 ```
