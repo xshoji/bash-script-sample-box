@@ -39,6 +39,12 @@ git rebase -i HEAD~5  ## ... 変更したいコミットの pick を edit へ
 git commit --amend --no-edit --date="2025-10-17T18:35:00"; git rebase --continue 
 ```
 
+## 特定のポートをListenしているプロセスをポート番号指定でkillする
+
+```
+lsof -ti:4321 | xargs kill -9
+```
+
 ## treeコマンドがない環境でtreeっぽく表示する
 
 リッチな表示
