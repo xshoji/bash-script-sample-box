@@ -17,13 +17,31 @@ b="feature/a"; url="$(git config --get remote.origin.url)"; dir="../${PWD##*/}-$
 リモートに存在するブランチならそれをCloneし、なければmainからworktree作成と同時に新規でブランチを切る
 
 ```
-b="feature/a"; dir="../${PWD##*/}-${b////-}"; if git ls-remote --exit-code --heads origin "${b}" > /dev/null 2>&1; then git fetch origin "${b}" && git worktree add -b "${b}" "${dir}" "remotes/origin/${b}"; else git worktree add -b "${b}" "${dir}"; fi; cd "${dir}"
+git-worktree-add(){
+  local b="$1";
+  local dir="../${PWD##*/}-${b////-}";
+  if git ls-remote --exit-code --heads origin "${b}" > /dev/null 2>&1; then
+    git fetch origin "${b}" && git worktree add -b "${b}" "${dir}" "remotes/origin/${b}";
+  else
+    git worktree add -b "${b}" "${dir}";
+  fi
+  cd "${dir}";
+}
 ```
 
 worktreeの作業が終わったらworktreeを決してブランチも削除する
 
 ```
-b="feature/a"; git worktree remove "../${PWD##*/}-${b////-}"; git branch -D "${b}"
+git-worktree-remove(){
+  local b="$(git branch | fzf | sed "s/^[+*] //g")";
+  local wd="../${PWD##*/}-${b////-}";
+  cd "${wd}";
+  git add -A; git diff --cached > "/tmp/git-worktree-remove-diff-${b////-}";
+  git reset --hard HEAD;
+  cd -;
+  git worktree remove "${wd}";
+  git branch -D "${b}"
+}
 ```
 
 
