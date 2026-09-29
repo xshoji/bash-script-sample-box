@@ -165,6 +165,13 @@ if [[ "${VAR_A}" == "true" ]]; then echo "ok"; else echo "ng"; fi
 ```bash
 #!/bin/bash
 
+
+#------------------------
+# Get absolute path
+ls |xargs -I{} echo "$(pwd)/{}"
+
+
+
 #------------------------
 # Get path ( script directory )
 SCRIPT_DIR="$(cd $(dirname "${BASH_SOURCE:-$0}") && pwd)"
