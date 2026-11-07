@@ -46,7 +46,7 @@ gwr(){
 }
 ```
 
-## main or masterとの差分を見る
+## リモートの main or master との差分を見る
 
 ```
 git add -A && git fetch origin && base=$(git symbolic-ref -q --short refs/remotes/origin/HEAD 2>/dev/null || { git show-ref --verify --quiet refs/remotes/origin/main && echo origin/main || echo origin/master; }) && git diff --cached "$(git merge-base HEAD "$base")"
