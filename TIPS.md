@@ -1,3 +1,11 @@
+## 便利コマンドスニペット
+
+コミットコマンド
+
+```
+pi -p --mode json --model "preview/DeepSeek-V4.1-Flash-1017" "run committing-changes skill now." |jq --unbuffered -j 'select(.type == "message_update") | .assistantMessageEvent | select(.type == "thinking_delta" or .type == "text_delta") | .delta'
+```
+
 ## git スニペット
 
 ### ブランチ名付きのディレクトリにクローンする（worktree風）
